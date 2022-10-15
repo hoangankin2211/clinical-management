@@ -3,20 +3,22 @@ import 'package:clinic_manager/common/widgets/custom_header.dart';
 import 'package:clinic_manager/common/widgets/custom_password_field.dart';
 import 'package:clinic_manager/common/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../common/widgets/custom_background.dart';
 import '../../../common/widgets/custom_circle_button.dart';
 import '../../../constants/app_color.dart';
+import '../controller/sign_in_controller.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+  SignInScreen({super.key});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController emailController = TextEditingController();
+  final _controller = Get.find<SignInController>();
   bool isChecked = false;
 
   @override
@@ -63,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               const SizedBox(height: 20),
               CustomTextField(
-                controller: emailController,
+                controller: _controller.emailController,
                 hintText: 'Enter your email',
                 labelText: 'Email',
                 icon: Icons.email,
@@ -79,7 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               const SizedBox(height: 20),
               CustomPasswordField(
-                controller: emailController,
+                controller: _controller.passwordController,
                 hintText: 'Enter your password',
                 labelText: 'Password',
               ),
@@ -118,7 +120,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              CustomButton(text: "Log In", onTap: () {}),
+              CustomButton(
+                text: "Log In",
+                onTap: () => _controller.signIn(context: context),
+              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

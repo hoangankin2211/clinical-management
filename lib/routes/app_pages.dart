@@ -19,7 +19,7 @@ class AppPages {
     ),
     GetPage(
       name: RouteNames.signInScreen,
-      page: () => const SignInScreen(),
+      page: () => SignInScreen(),
       binding: SignInBinding(),
     ),
   ];
