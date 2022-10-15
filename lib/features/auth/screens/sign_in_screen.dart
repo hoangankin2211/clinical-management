@@ -52,7 +52,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               const Text(
                 'Email',
                 style: TextStyle(
@@ -68,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 labelText: 'Email',
                 icon: Icons.email,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               const Text(
                 'Password',
                 style: TextStyle(
@@ -117,7 +117,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomButton(text: "Log In", onTap: () {}),
               const SizedBox(height: 20),
               Row(
