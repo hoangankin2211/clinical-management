@@ -120,9 +120,24 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              CustomButton(
-                text: "Log In",
-                onTap: () => _controller.signIn(context: context),
+              Obx(
+                () => ElevatedButton(
+                  onPressed: () => _controller.signInAndLoading(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                    minimumSize: const Size(double.infinity, 50),
+                  ),
+                  child: _controller.isLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(color: Colors.white))
+                      : const Text(
+                          'Log in',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ),
               ),
               const SizedBox(height: 20),
               Row(

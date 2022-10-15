@@ -9,7 +9,7 @@ import '../../../constants/error_handing.dart';
 class SignInController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  final RxBool isLoading = false.obs;
   void signIn({required BuildContext context}) async {
     try {
       http.Response res = await http.post(
@@ -44,11 +44,21 @@ class SignInController extends GetxController {
           //   (route) => false,
           // );
           print("Success");
+          isLoading.value = false;
+          update();
         },
       );
     } catch (e) {
       print(e.toString());
+      isLoading.value = false;
+      update();
     }
+  }
+
+  signInAndLoading(BuildContext context) async {
+    isLoading.value = true;
+    update();
+    signIn(context: context);
   }
 
   @override
