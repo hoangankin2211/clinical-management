@@ -2,32 +2,38 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_color.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomPasswordField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String labelText;
   final int maxLines;
-  final IconData icon;
-  const CustomTextField({
+  const CustomPasswordField({
     Key? key,
     required this.controller,
     required this.hintText,
     this.maxLines = 1,
     required this.labelText,
-    required this.icon,
   }) : super(key: key);
+
+  @override
+  State<CustomPasswordField> createState() => _CustomPasswordFieldState();
+}
+
+class _CustomPasswordFieldState extends State<CustomPasswordField> {
+  bool checkShow = true;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: checkShow,
+      controller: widget.controller,
       style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
-      controller: controller,
       decoration: InputDecoration(
         labelStyle: const TextStyle(
           color: AppColors.primaryColor,
         ),
-        labelText: labelText,
-        hintText: hintText,
+        labelText: widget.labelText,
+        hintText: widget.hintText,
         focusColor: AppColors.primaryColor,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -51,7 +57,16 @@ class CustomTextField extends StatelessWidget {
         ),
         suffixIcon: Padding(
           padding: const EdgeInsets.fromLTRB(0, 12, 12, 12),
-          child: Icon(icon),
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                checkShow = !checkShow;
+              });
+            },
+            child: Icon(
+              (checkShow) ? Icons.visibility : Icons.visibility_off,
+            ),
+          ),
         ),
         border: const OutlineInputBorder(
             borderSide: BorderSide(
@@ -60,11 +75,11 @@ class CustomTextField extends StatelessWidget {
       ),
       validator: (val) {
         if (val == null || val.isEmpty) {
-          return 'Enter your $hintText';
+          return 'Enter your ${widget.hintText}';
         }
         return null;
       },
-      maxLines: maxLines,
+      maxLines: widget.maxLines,
     );
   }
 }
