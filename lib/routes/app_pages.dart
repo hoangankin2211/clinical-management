@@ -3,6 +3,7 @@ import 'package:clinic_manager/routes/route_name.dart';
 import 'package:get/get.dart';
 
 import '../features/auth/screens/sign_in_screen.dart';
+import '../features/dashboard/screens/dashboard_screen.dart';
 import '../features/splash_intro/screens/intro_screen.dart';
 import '../features/splash_intro/screens/splash_screen.dart';
 
@@ -21,6 +22,11 @@ class AppPages {
       name: RouteNames.signInScreen,
       page: () => SignInScreen(),
       binding: SignInBinding(),
+    ),
+    GetPage(
+      name: RouteNames.dashboardScreen,
+      page: () => DashBoardScreen(),
+      // binding: SignInBinding(),
     ),
   ];
 }
