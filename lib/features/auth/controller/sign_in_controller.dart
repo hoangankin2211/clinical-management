@@ -13,45 +13,18 @@ class SignInController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final RxBool isLoading = false.obs;
-  void signIn({required BuildContext context}) async {
-    try {
-      http.Response res = await http.post(
-        Uri.parse(
-          '${ApiLink.uri}/api/signin',
-        ),
-        body: jsonEncode(
-          {
-            'email': emailController.text,
-            'password': passwordController.text,
-          },
-        ),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          // ignore: use_build_context_synchronously
-          AuthService.instance.setUser(res.body);
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          Get.offAllNamed(RouteNames.dashboardScreen);
-        },
-      );
-    } catch (e) {
-      isLoading.value = false;
-      update();
-    }
-    isLoading.value = false;
-    update();
-  }
 
   signInAndLoading(BuildContext context) async {
     isLoading.value = true;
     update();
-    signIn(context: context);
+    AuthService.instance.signIn(
+        context: context,
+        email: emailController.text,
+        password: passwordController.text,
+        updataLoading: () {
+          isLoading.value = false;
+          update();
+        });
   }
 
   @override
