@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/user.dart';
-import '../../../services/auth_services.dart';
+import '../../../../models/user.dart';
+import '../../../../services/auth_services.dart';
 
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({super.key});

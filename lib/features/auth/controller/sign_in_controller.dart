@@ -4,10 +4,7 @@ import 'package:clinic_manager/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../common/widgets/custom_dialog_error/error_dialog.dart';
 import '../../../constants/api_link.dart';
 import '../../../constants/error_handing.dart';
 import '../../../routes/route_name.dart';
