@@ -11,6 +11,7 @@ class SocketClient {
       'autoConnect': false,
     });
     socket!.connect();
+    socket!.onConnect((data) => {print('connected')});
   }
 
   static SocketClient get instance {

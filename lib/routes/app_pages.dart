@@ -1,4 +1,5 @@
 import 'package:clinic_manager/features/auth/binding/sign_in_binding.dart';
+import 'package:clinic_manager/features/patient/dashboard/binding/dashboard_binding.dart';
 import 'package:clinic_manager/routes/route_name.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +27,7 @@ class AppPages {
     GetPage(
       name: RouteNames.dashboardScreen,
       page: () => DashBoardScreen(),
-      // binding: SignInBinding(),
+      binding: DashboardBinding(),
     ),
   ];
 }
