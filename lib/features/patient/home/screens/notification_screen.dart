@@ -59,7 +59,7 @@ class NotificationScreen extends StatelessWidget {
             time: DateTime.now(),
             type: 2,
             title:
-                'You have successfully booked an appointment with Dr.Alan Waston on December 24,2024, 10:00 am. Don\'t forget to activate your reminder',
+                'You have successfully booked an appointment with Dr.Alan Waston on December 24, 2024, 10:00 am. Don\'t forget to activate your reminder',
           ),
           NotificationItem(
             mainTitle: 'New Services Available!',

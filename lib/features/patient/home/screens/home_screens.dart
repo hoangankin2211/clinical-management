@@ -367,7 +367,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           InkWell(
-            onTap: () {},
+            onTap: () => Get.toNamed(RouteNames.favoriteScreen),
             child: const Icon(Icons.favorite_outline),
           ),
         ],
