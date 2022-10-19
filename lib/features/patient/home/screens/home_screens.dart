@@ -1,10 +1,13 @@
 import 'package:clinic_manager/constants/fake_data.dart';
+import 'package:clinic_manager/features/patient/home/screens/top_doctor_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../../constants/app_color.dart';
 import '../../../../routes/route_name.dart';
 import '../widgets/doctor_card.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 List<Map<String, dynamic>> fakeItem = [
   {
@@ -59,7 +62,10 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 20),
           _checkHealthView(),
           const SizedBox(height: 20),
-          _row(header1: 'Doctor Speciality', header2: 'See More'),
+          _row(
+              header1: 'Doctor Speciality',
+              header2: 'See More',
+              context: context),
           const SizedBox(height: 10),
           SizedBox(
             width: double.infinity,
@@ -107,7 +113,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          _row(header1: 'Top Doctor', header2: 'See All'),
+          _row(header1: 'Top Doctor', header2: 'See All', context: context),
           const SizedBox(height: 15),
           Obx(
             () => SizedBox(
@@ -175,7 +181,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Padding _row({required String header1, required String header2}) {
+  Padding _row(
+      {required String header1,
+      required String header2,
+      required BuildContext context}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -190,7 +199,10 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async => await showMaterialModalBottomSheet(
+              context: context,
+              builder: (context) => TopDoctorScreen(),
+            ),
             child: Text(
               header2,
               style: const TextStyle(
@@ -300,6 +312,8 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
               child: TextFormField(
+            onFieldSubmitted: (stringQuery) =>
+                Get.toNamed(RouteNames.searchScreen, arguments: stringQuery),
             decoration: const InputDecoration(
               hintText: 'Search',
               hintStyle: TextStyle(color: AppColors.textColor1),

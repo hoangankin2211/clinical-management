@@ -8,7 +8,9 @@ import 'package:get/get.dart';
 import '../features/auth/screens/sign_in_screen.dart';
 import '../features/patient/dashboard/screens/dashboard_screen.dart';
 import '../features/patient/home/binding/notification_binding.dart';
+import '../features/patient/home/binding/search_binding.dart';
 import '../features/patient/home/screens/favorite_screen.dart';
+import '../features/patient/home/screens/search_screen.dart';
 import '../features/splash_intro/screens/intro_screen.dart';
 import '../features/splash_intro/screens/splash_screen.dart';
 
@@ -40,8 +42,13 @@ class AppPages {
     ),
     GetPage(
       name: RouteNames.favoriteScreen,
-      page: () => const FavoriteScreen(),
+      page: () => FavoriteScreen(),
       binding: FavoriteBinding(),
+    ),
+    GetPage(
+      name: RouteNames.searchScreen,
+      page: () => SearchScreen(),
+      binding: SearchBinding(),
     ),
   ];
 }
