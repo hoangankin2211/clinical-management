@@ -6,7 +6,7 @@ import '../../home/screens/home_screens.dart';
 class DashboardController extends GetxController {
   RxInt page = 0.obs;
   List<Widget> pages = [
-    const HomeScreen(),
+    HomeScreen(),
     const Center(child: Text('Appointment')),
     const Center(child: Text('History')),
     const Center(child: Text('Articles')),

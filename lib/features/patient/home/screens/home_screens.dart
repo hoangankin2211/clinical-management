@@ -1,11 +1,47 @@
+import 'package:clinic_manager/constants/fake_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:get/get.dart';
 import '../../../../constants/app_color.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+List<Map<String, dynamic>> fakeItem = [
+  {
+    'image': 'assets/icons/people.svg',
+    'name': 'General',
+  },
+  {
+    'image': 'assets/icons/dentist.svg',
+    'name': 'Dentist',
+  },
+  {
+    'image': 'assets/icons/eye.svg',
+    'name': 'Ophthal',
+  },
+  {
+    'image': 'assets/icons/nutritionist.svg',
+    'name': 'Nutritionist',
+  },
+  {
+    'image': 'assets/icons/neurole.svg',
+    'name': 'Neurole',
+  },
+  {
+    'image': 'assets/icons/bediatric.svg',
+    'name': 'Pediatric',
+  },
+  {
+    'image': 'assets/icons/radiology.svg',
+    'name': 'Radiology',
+  },
+  {
+    'image': 'assets/icons/more.svg',
+    'name': 'More',
+  },
+];
 
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
+  RxInt selectTop = 0.obs;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,12 +52,122 @@ class HomeScreen extends StatelessWidget {
         ),
         children: [
           _headerView(),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           _searchView(),
           const SizedBox(height: 20),
           _checkHealthView(),
           const SizedBox(height: 20),
           _row(header1: 'Doctor Speciality', header2: 'See More'),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            height: 80,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              children: [
+                // const SizedBox(width: 10),
+                ...fakeItem.map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(60),
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.primaryColor.withOpacity(0.1),
+                            ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: SvgPicture.asset(e['image'],
+                                height: 30,
+                                width: 30,
+                                color: AppColors.primaryColor1),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            e['name'],
+                            style: const TextStyle(
+                              color: AppColors.textColor1,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          _row(header1: 'Top Doctor', header2: 'See All'),
+          const SizedBox(height: 15),
+          Obx(
+            () => SizedBox(
+              height: 30,
+              width: double.infinity,
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics(),
+                ),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const SizedBox(width: 10),
+                  for (int i = 0; i < FakeData.topData.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () {
+                          selectTop.value = i;
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: (i == selectTop.value)
+                                  ? AppColors.primaryColor
+                                  : Colors.white,
+                              border: Border.all(
+                                  width: 1, color: AppColors.primaryColor)),
+                          child: Text(
+                            FakeData.topData[i],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: (i == selectTop.value)
+                                  ? Colors.white
+                                  : AppColors.primaryColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Column(
+            children: const [
+              DoctorCard(
+                name: 'Dr. Minh Hung',
+                image: 'assets/images/doctor2.png',
+              ),
+              DoctorCard(
+                name: 'Dr. Duc Hoang',
+                image: 'assets/images/doctor3.png',
+              ),
+              SizedBox(height: 20.0),
+            ],
+          ),
         ],
       ),
     );
@@ -140,7 +286,7 @@ class HomeScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppColors.textColor1.withOpacity(0.1),
@@ -176,11 +322,19 @@ class HomeScreen extends StatelessWidget {
           Container(
             width: 40,
             height: 40,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage('assets/images/facebook.png'),
+              image: const DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/doctor2.png'),
               ),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: AppColors.textColor.withOpacity(0.2),
+                  offset: const Offset(2, 2),
+                ),
+              ],
             ),
           ),
           const SizedBox(width: 10),
@@ -214,6 +368,100 @@ class HomeScreen extends StatelessWidget {
             onTap: () {},
             child: const Icon(Icons.favorite_outline),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class DoctorCard extends StatelessWidget {
+  final String image;
+  final String name;
+  const DoctorCard({
+    Key? key,
+    required this.image,
+    required this.name,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.all(10.0),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: AppColors.backgroudColor,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.textColor.withOpacity(0.3),
+            blurRadius: 10.0,
+            offset: const Offset(5.0, 5.0),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 100.0,
+            height: 100.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(image),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        name,
+                        style: const TextStyle(
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    const Icon(Icons.favorite,
+                        color: AppColors.primaryColor, size: 18),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                const Divider(color: AppColors.textColor1),
+                const SizedBox(height: 2),
+                RichText(
+                  textAlign: TextAlign.start,
+                  text: const TextSpan(
+                    style: TextStyle(color: AppColors.textColor1, fontSize: 13),
+                    children: [
+                      TextSpan(text: 'Dentist | '),
+                      TextSpan(text: 'Alka Hospital'),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: const [
+                    Icon(Icons.star, color: AppColors.primaryColor, size: 15),
+                    Text(
+                      ' 4.3 (5.376 reviews)',
+                      style:
+                          TextStyle(color: AppColors.textColor, fontSize: 12),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
