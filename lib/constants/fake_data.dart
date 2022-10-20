@@ -8,4 +8,5 @@ class FakeData {
     'Pediatric',
     'Radiolonist',
   ];
+  static const List<int> rating = [6, 5, 4, 3, 2, 1];
 }
