@@ -33,7 +33,7 @@ class AuthService extends ChangeNotifier {
   bool get isLogin => user.id == '' ? false : true;
 
   Future<bool> getUserData() async {
-    // print('Get user data function');
+    print('Get user data function');
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
