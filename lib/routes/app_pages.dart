@@ -1,5 +1,9 @@
 import 'package:clinic_manager/features/auth/binding/sign_in_binding.dart';
 import 'package:clinic_manager/features/patient/dashboard/binding/dashboard_binding.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/binding/doctor_detail_binding.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/binding/view_review_binding.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/doctor_detail_screen.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/view_reviews_screen.dart';
 import 'package:clinic_manager/features/patient/home/binding/favorite_binding.dart';
 import 'package:clinic_manager/features/patient/home/screens/notification_screen.dart';
 import 'package:clinic_manager/routes/route_name.dart';
@@ -49,6 +53,16 @@ class AppPages {
       name: RouteNames.searchScreen,
       page: () => SearchScreen(),
       binding: SearchBinding(),
+    ),
+    GetPage(
+      name: RouteNames.doctorDetailScreen,
+      page: () => DoctorDetailSceen(),
+      binding: DoctorDetailBinding(),
+    ),
+    GetPage(
+      name: RouteNames.viewReiviewScreen,
+      page: () => ViewReviewScreen(),
+      binding: ViewReviewBinding(),
     ),
   ];
 }

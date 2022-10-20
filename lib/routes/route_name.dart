@@ -6,4 +6,6 @@ class RouteNames {
   static const String notificationScreen = "/notification_screen";
   static const String favoriteScreen = "/favorite_screen";
   static const String searchScreen = "/search_screen";
+  static const String doctorDetailScreen = "/doctor_detail_screen";
+  static const String viewReiviewScreen = "/view_reiview_screen";
 }
