@@ -9,4 +9,11 @@ class RouteNames {
   static const String doctorDetailScreen = "/doctor_detail_screen";
   static const String viewReiviewScreen = "/view_reiview_screen";
   static const String bookAppointmentScreen = "/book_appointment_screen";
+
+  static const String addNewCardScreen = "/add_new_card_screen";
+  static const String enterPinScreen = "/enter_pin_screen";
+  static const String patientDetailScreen = "/patient_detail_screen";
+  static const String reviewSumaryScreen = "/review_sumary_screen";
+  static const String selectPackageScreen = "/select_package_screen";
+  static const String payementScreen = "/payement_screen";
 }

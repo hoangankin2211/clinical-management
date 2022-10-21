@@ -4,6 +4,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../common/widgets/custom_button.dart';
 import '../../../../constants/app_color.dart';
+import '../../../../routes/route_name.dart';
 
 List<List<String>> timeMeeting = [
   [
@@ -136,7 +137,7 @@ class BookAppointmentScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: CustomButton(
-                onTap: () {},
+                onTap: () => Get.toNamed(RouteNames.selectPackageScreen),
                 text: 'Next',
               )),
           // InkWell(

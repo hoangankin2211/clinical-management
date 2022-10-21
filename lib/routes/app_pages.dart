@@ -5,6 +5,10 @@ import 'package:clinic_manager/features/patient/doctor_detail/binding/doctor_det
 import 'package:clinic_manager/features/patient/doctor_detail/binding/view_review_binding.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/screens/book_appointment_screen.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/screens/doctor_detail_screen.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/enter_pin_screen.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/patient_detail_screen.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/payement_screen.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/select_package_screen.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/screens/view_reviews_screen.dart';
 import 'package:clinic_manager/features/patient/home/binding/favorite_binding.dart';
 import 'package:clinic_manager/features/patient/home/screens/notification_screen.dart';
@@ -13,6 +17,7 @@ import 'package:get/get.dart';
 
 import '../features/auth/screens/sign_in_screen.dart';
 import '../features/patient/dashboard/screens/dashboard_screen.dart';
+import '../features/patient/doctor_detail/screens/review_sumary_screen.dart';
 import '../features/patient/home/binding/notification_binding.dart';
 import '../features/patient/home/binding/search_binding.dart';
 import '../features/patient/home/screens/favorite_screen.dart';
@@ -70,6 +75,26 @@ class AppPages {
       name: RouteNames.bookAppointmentScreen,
       page: () => BookAppointmentScreen(),
       binding: BookAppointmentBinding(),
+    ),
+    GetPage(
+      name: RouteNames.selectPackageScreen,
+      page: () => SelectPackageScreen(),
+    ),
+    GetPage(
+      name: RouteNames.patientDetailScreen,
+      page: () => PatientDetailScsreen(),
+    ),
+    GetPage(
+      name: RouteNames.payementScreen,
+      page: () => PaymentScreen(),
+    ),
+    GetPage(
+      name: RouteNames.reviewSumaryScreen,
+      page: () => ReviewSummaryScreen(),
+    ),
+    GetPage(
+      name: RouteNames.enterPinScreen,
+      page: () => EnterPinSccreen(),
     ),
   ];
 }
