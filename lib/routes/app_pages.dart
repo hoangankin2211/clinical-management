@@ -1,7 +1,9 @@
 import 'package:clinic_manager/features/auth/binding/sign_in_binding.dart';
 import 'package:clinic_manager/features/patient/dashboard/binding/dashboard_binding.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/binding/book_appointment_binding.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/binding/doctor_detail_binding.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/binding/view_review_binding.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/book_appointment_screen.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/screens/doctor_detail_screen.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/screens/view_reviews_screen.dart';
 import 'package:clinic_manager/features/patient/home/binding/favorite_binding.dart';
@@ -63,6 +65,11 @@ class AppPages {
       name: RouteNames.viewReiviewScreen,
       page: () => ViewReviewScreen(),
       binding: ViewReviewBinding(),
+    ),
+    GetPage(
+      name: RouteNames.bookAppointmentScreen,
+      page: () => BookAppointmentScreen(),
+      binding: BookAppointmentBinding(),
     ),
   ];
 }

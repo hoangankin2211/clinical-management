@@ -44,7 +44,7 @@ class DoctorDetailSceen extends StatelessWidget {
           ],
         ),
         child: InkWell(
-          onTap: () {},
+          onTap: () => Get.toNamed(RouteNames.bookAppointmentScreen),
           child: Container(
             width: double.infinity,
             height: 30,

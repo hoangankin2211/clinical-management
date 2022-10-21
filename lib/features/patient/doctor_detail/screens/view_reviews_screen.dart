@@ -110,7 +110,7 @@ class ViewReviewScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            CommentCard(
+            const CommentCard(
               name: 'Charolette Hanlin',
               image: 'assets/images/doctor3.png',
               favCount: 629,
@@ -120,7 +120,7 @@ class ViewReviewScreen extends StatelessWidget {
               star: 4,
               checkLike: true,
             ),
-            CommentCard(
+            const CommentCard(
               name: 'Nguyen Minh Hung',
               image: 'assets/images/doctor2.png',
               favCount: 300,
@@ -129,7 +129,7 @@ class ViewReviewScreen extends StatelessWidget {
               star: 3,
               checkLike: true,
             ),
-            CommentCard(
+            const CommentCard(
               name: 'Charolette Hanlin',
               image: 'assets/images/doctor3.png',
               favCount: 629,
@@ -139,7 +139,7 @@ class ViewReviewScreen extends StatelessWidget {
               star: 4,
               checkLike: true,
             ),
-            CommentCard(
+            const CommentCard(
               name: 'Nguyen Minh Hung',
               image: 'assets/images/doctor2.png',
               favCount: 300,
