@@ -1,3 +1,4 @@
+import 'package:clinic_manager/routes/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,7 @@ class MyAppointmentDetailScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: InkWell(
           borderRadius: BorderRadius.circular(20.0),
-          onTap: () {},
+          onTap: () => Get.toNamed(RouteNames.messageScreen),
           child: Container(
             width: double.infinity,
             height: 60,
