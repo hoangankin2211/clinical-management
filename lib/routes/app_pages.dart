@@ -12,6 +12,8 @@ import 'package:clinic_manager/features/patient/doctor_detail/screens/select_pac
 import 'package:clinic_manager/features/patient/doctor_detail/screens/view_reviews_screen.dart';
 import 'package:clinic_manager/features/patient/home/binding/favorite_binding.dart';
 import 'package:clinic_manager/features/patient/home/screens/notification_screen.dart';
+import 'package:clinic_manager/features/patient/my_appointment_detail_screen.dart/binding/my_appointment_detail_binding.dart';
+import 'package:clinic_manager/features/patient/my_appointment_detail_screen.dart/screens/my_appointment_detail._screen.dart';
 import 'package:clinic_manager/features/patient/reschedule_apponitment/screens/reason_schedule_change_screen.dart';
 import 'package:clinic_manager/routes/route_name.dart';
 import 'package:get/get.dart';
@@ -102,6 +104,11 @@ class AppPages {
       name: RouteNames.reasonScheduleChangeScreen,
       page: () => ReasonScheduleChagescreen(),
       binding: ReasonScheduleChangeBinding(),
+    ),
+    GetPage(
+      name: RouteNames.myAppointmentDetailScreen,
+      page: () => MyAppointmentDetailScreen(),
+      binding: MyAppointmentDetailBinding(),
     ),
   ];
 }

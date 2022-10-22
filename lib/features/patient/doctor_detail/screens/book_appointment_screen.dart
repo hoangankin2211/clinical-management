@@ -142,14 +142,15 @@ class BookAppointmentScreen extends StatelessWidget {
                 onTap: () {
                   if (arg == "Book Appointment")
                     Get.toNamed(RouteNames.selectPackageScreen);
-                  else
+                  else {
                     showDialog(
                       context: context,
-                      builder: (context) => SuccessDialog(
+                      builder: (context) => const SuccessDialog(
                           question: 'Rescheduling Success',
                           title1:
                               "Appointment successfully changed. You will receive a notification and the doctor you selected will contact you"),
                     );
+                  }
                 },
                 text: 'Next',
               )),

@@ -35,24 +35,27 @@ class SuccessDialog extends StatelessWidget {
         ),
         child: SizedBox(
           height: Get.mediaQuery.size.height * 0.3,
-          width: Get.mediaQuery.size.width * 0.8,
+          width: Get.mediaQuery.size.width * 0.9,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
               const Spacer(),
-              Text(
-                question,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  question,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: 70,
+                height: 80,
                 width: Get.mediaQuery.size.width * 0.7,
                 child: Text(
                   title1,

@@ -19,4 +19,7 @@ class RouteNames {
 
   static const String reasonScheduleChangeScreen =
       "/reason_schedule_change_screen";
+
+  static const String myAppointmentDetailScreen =
+      "/my_appointment_detail_screen";
 }
