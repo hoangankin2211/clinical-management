@@ -1,3 +1,4 @@
+import 'package:clinic_manager/common/widgets/custom_dialog_error/success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -35,6 +36,7 @@ class BookAppointmentScreen extends StatelessWidget {
   Rx<DateTime> selectedDay = DateTime.now().obs;
   Rx<DateTime> focusedDay = DateTime.now().obs;
   Rx<String> select = ''.obs;
+  final String arg = Get.arguments as String;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +48,9 @@ class BookAppointmentScreen extends StatelessWidget {
           onTap: () => Get.back(),
           child: const Icon(Icons.arrow_back, color: AppColors.textColor),
         ),
-        title: const Text(
-          'Book Appointment',
-          style: TextStyle(
+        title: Text(
+          arg,
+          style: const TextStyle(
             color: AppColors.textColor,
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -137,37 +139,20 @@ class BookAppointmentScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: CustomButton(
-                onTap: () => Get.toNamed(RouteNames.selectPackageScreen),
+                onTap: () {
+                  if (arg == "Book Appointment")
+                    Get.toNamed(RouteNames.selectPackageScreen);
+                  else
+                    showDialog(
+                      context: context,
+                      builder: (context) => SuccessDialog(
+                          question: 'Rescheduling Success',
+                          title1:
+                              "Appointment successfully changed. You will receive a notification and the doctor you selected will contact you"),
+                    );
+                },
                 text: 'Next',
               )),
-          // InkWell(
-          //   borderRadius: BorderRadius.circular(20.0),
-          //   onTap: () {},
-          //   child: Container(
-          //     margin: const EdgeInsets.symmetric(horizontal: 20.0),
-          //     alignment: Alignment.center,
-          //     width: double.infinity,
-          //     height: 50,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(20.0),
-          //       color: AppColors.primaryColor1.withOpacity(0.6),
-          //       // boxShadow: [
-          //       //   BoxShadow(
-          //       //     color: AppColors.textColor.withOpacity(0.7),
-          //       //     blurRadius: 10.0,
-          //       //     offset: const Offset(5.0, 5.0),
-          //       //   )
-          //       // ],
-          //     ),
-          //     child: const Text(
-          //       'Next',
-          //       style: TextStyle(
-          //           color: Colors.white,
-          //           fontWeight: FontWeight.bold,
-          //           fontSize: 16),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

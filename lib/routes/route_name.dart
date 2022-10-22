@@ -16,4 +16,7 @@ class RouteNames {
   static const String reviewSumaryScreen = "/review_sumary_screen";
   static const String selectPackageScreen = "/select_package_screen";
   static const String payementScreen = "/payement_screen";
+
+  static const String reasonScheduleChangeScreen =
+      "/reason_schedule_change_screen";
 }

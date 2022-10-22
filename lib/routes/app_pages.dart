@@ -12,6 +12,7 @@ import 'package:clinic_manager/features/patient/doctor_detail/screens/select_pac
 import 'package:clinic_manager/features/patient/doctor_detail/screens/view_reviews_screen.dart';
 import 'package:clinic_manager/features/patient/home/binding/favorite_binding.dart';
 import 'package:clinic_manager/features/patient/home/screens/notification_screen.dart';
+import 'package:clinic_manager/features/patient/reschedule_apponitment/screens/reason_schedule_change_screen.dart';
 import 'package:clinic_manager/routes/route_name.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,7 @@ import '../features/patient/home/binding/notification_binding.dart';
 import '../features/patient/home/binding/search_binding.dart';
 import '../features/patient/home/screens/favorite_screen.dart';
 import '../features/patient/home/screens/search_screen.dart';
+import '../features/patient/reschedule_apponitment/binding/reason_schedule_change_binding.dart';
 import '../features/splash_intro/screens/intro_screen.dart';
 import '../features/splash_intro/screens/splash_screen.dart';
 
@@ -95,6 +97,11 @@ class AppPages {
     GetPage(
       name: RouteNames.enterPinScreen,
       page: () => EnterPinSccreen(),
+    ),
+    GetPage(
+      name: RouteNames.reasonScheduleChangeScreen,
+      page: () => ReasonScheduleChagescreen(),
+      binding: ReasonScheduleChangeBinding(),
     ),
   ];
 }
