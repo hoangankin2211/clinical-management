@@ -39,7 +39,11 @@ class MyAppointmentDetailScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: InkWell(
           borderRadius: BorderRadius.circular(20.0),
-          onTap: () => Get.toNamed(RouteNames.messageScreen),
+          onTap: () {
+            (arg == 0)
+                ? Get.toNamed(RouteNames.messageScreen)
+                : Get.toNamed(RouteNames.callScreen);
+          },
           child: Container(
             width: double.infinity,
             height: 60,
@@ -322,9 +326,9 @@ class MyAppointmentDetailScreen extends StatelessWidget {
               color: AppColors.backgroudColor,
               boxShadow: [
                 BoxShadow(
-                  offset: const Offset(5.0, 5.0),
+                  // offset: const Offset(5.0, 5.0),
                   blurRadius: 10.0,
-                  color: AppColors.textColor.withOpacity(0.1),
+                  color: AppColors.textColor.withOpacity(0.2),
                 ),
               ],
             ),

@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
+import 'dart:async';
 
 import '../../../../constants/app_color.dart';
+import '../../../../routes/route_name.dart';
+import '../widgets/audio_mess.dart';
+import '../widgets/picture_mess.dart';
+import '../widgets/recieve_card.dart';
+import '../widgets/send_card.dart';
 
 class MessageScreen extends StatefulWidget {
   MessageScreen({super.key});
@@ -90,10 +98,51 @@ class _MessageScreenState extends State<MessageScreen> {
             onTap: () async {},
             child: const Icon(Icons.search, color: AppColors.textColor),
           ),
-          const SizedBox(width: 5),
-          InkWell(
-            onTap: () {},
-            child: const Icon(Icons.more_horiz, color: AppColors.textColor),
+          // const SizedBox(width: 5),
+          PopUpMen(
+            menuList: const [
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(
+                    CupertinoIcons.trash,
+                  ),
+                  title: Text("Clear Chat", style: TextStyle(fontSize: 14)),
+                ),
+              ),
+              PopupMenuDivider(),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(
+                    CupertinoIcons.cloud_download,
+                  ),
+                  title: Text("Export Chat", style: TextStyle(fontSize: 14)),
+                ),
+              ),
+              PopupMenuDivider(),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(
+                    CupertinoIcons.trash,
+                    color: Colors.red,
+                  ),
+                  title: Text("Delete Chat",
+                      style: TextStyle(color: Colors.red, fontSize: 14)),
+                ),
+              ),
+            ],
+            icon: Container(
+              padding: const EdgeInsets.all(1.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 2, color: AppColors.textColor),
+                color: AppColors.backgroudColor,
+              ),
+              child: const Icon(
+                Icons.more_horiz,
+                color: AppColors.textColor,
+                size: 15,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
         ],
@@ -208,136 +257,9 @@ class _MessageScreenState extends State<MessageScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        // /gallery
-                        // audio
-                        //Document
                         showDialog(
                             context: context,
-                            builder: (context) => Dialog(
-                                  backgroundColor: Colors.transparent,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(10.0),
-                                    alignment: Alignment.center,
-                                    width: double.infinity,
-                                    height:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: AppColors.backgroudColor,
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: InkWell(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: 50,
-                                                  height: 50,
-                                                  alignment: Alignment.center,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color:
-                                                        AppColors.primaryColor,
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/audio.svg',
-                                                    color: Colors.white,
-                                                    height: 30,
-                                                    width: 30,
-                                                  ),
-                                                ),
-                                                const Text(
-                                                  'Audio',
-                                                  style: TextStyle(
-                                                    color: AppColors.textColor,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: InkWell(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: 50,
-                                                  height: 50,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.green
-                                                        .withOpacity(0.7),
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/Document.svg',
-                                                    color: Colors.white,
-                                                    height: 30,
-                                                    width: 30,
-                                                  ),
-                                                ),
-                                                const Text(
-                                                  'Document',
-                                                  style: TextStyle(
-                                                    color: AppColors.textColor,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: InkWell(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: 50,
-                                                  height: 50,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.red
-                                                        .withOpacity(0.7),
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/gallery.svg',
-                                                    color: Colors.white,
-                                                    height: 30,
-                                                    width: 30,
-                                                  ),
-                                                ),
-                                                const Text(
-                                                  'Gallery',
-                                                  style: TextStyle(
-                                                    color: AppColors.textColor,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
+                            builder: (context) => _dialogChooseFile(context));
                       },
                       child: SvgPicture.asset(
                         'assets/icons/Camera.svg',
@@ -359,7 +281,7 @@ class _MessageScreenState extends State<MessageScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(RouteNames.successfulScreen),
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
@@ -379,74 +301,120 @@ class _MessageScreenState extends State<MessageScreen> {
       ),
     );
   }
-}
 
-class AudioMess extends StatefulWidget {
-  final DateTime time;
-  const AudioMess({super.key, required this.time});
-
-  @override
-  State<AudioMess> createState() => _AudioMessState();
-}
-
-class _AudioMessState extends State<AudioMess> with TickerProviderStateMixin {
-  late AnimationController controller;
-  @override
-  void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    )..addListener(() {
-        setState(() {});
-      });
-    controller.repeat(reverse: true);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
+  Dialog _dialogChooseFile(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.72,
-        margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
         padding: const EdgeInsets.all(10.0),
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: MediaQuery.of(context).size.width * 0.3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: AppColors.primaryColor.withOpacity(0.2),
+          color: AppColors.backgroudColor,
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(Icons.play_circle, color: AppColors.primaryColor1),
-            const SizedBox(width: 10),
             Expanded(
-              child: LinearProgressIndicator(
-                value: controller.value,
-                semanticsLabel: 'Linear progress indicator',
+              child: InkWell(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.primaryColor,
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/audio.svg',
+                        color: Colors.white,
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                    const Text(
+                      'Audio',
+                      style: TextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             const SizedBox(width: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    DateFormat().add_jm().format(widget.time),
-                    style: const TextStyle(
-                      color: AppColors.primaryColor1,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 10,
+            Expanded(
+              child: InkWell(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.green.withOpacity(0.7),
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/Document.svg',
+                        color: Colors.white,
+                        height: 30,
+                        width: 30,
+                      ),
                     ),
-                  ),
+                    const Text(
+                      'Document',
+                      style: TextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
                 ),
-                const Icon(
-                  Icons.check,
-                  size: 15,
-                  color: AppColors.primaryColor1,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: InkWell(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red.withOpacity(0.7),
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/gallery.svg',
+                        color: Colors.white,
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                    const Text(
+                      'Gallery',
+                      style: TextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            )
+              ),
+            ),
           ],
         ),
       ),
@@ -454,239 +422,20 @@ class _AudioMessState extends State<AudioMess> with TickerProviderStateMixin {
   }
 }
 
-class PictureMess extends StatelessWidget {
-  final List<String> mess;
-  final int type;
-  const PictureMess({super.key, required this.mess, required this.type});
+class PopUpMen extends StatelessWidget {
+  final List<PopupMenuEntry> menuList;
+  final Widget? icon;
+  const PopUpMen({Key? key, required this.menuList, this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      child: Align(
-        alignment: type == 0 ? Alignment.centerRight : Alignment.centerLeft,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.72,
-          height: (mess.length / 2).round() *
-              (MediaQuery.of(context).size.width * 0.72 / 2),
-          child: GridView.count(
-            primary: false,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-            crossAxisCount: 2,
-            children: [
-              ...mess.map(
-                (e) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(e),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+    return PopupMenuButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
       ),
-    );
-  }
-}
-
-class SendCard extends StatelessWidget {
-  final String title;
-  final int typeMess;
-  final DateTime time;
-  const SendCard({
-    Key? key,
-    required this.title,
-    required this.typeMess,
-    required this.time,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.72,
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            decoration: const BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                topRight: Radius.circular(25),
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(10),
-              ),
-            ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  (typeMess == 0)
-                      ? SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.72 - 90,
-                          child: Text(
-                            title,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
-                            ),
-                          ),
-                        )
-                      : Container(
-                          width: MediaQuery.of(context).size.width * 0.72 - 90,
-                          height: MediaQuery.of(context).size.width * 0.72 - 90,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                title,
-                              ),
-                            ),
-                          ),
-                        ),
-                  const SizedBox(
-                    width: 2,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          DateFormat().add_jm().format(time),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
-                      const Icon(
-                        Icons.check,
-                        size: 15,
-                        color: Colors.white,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 20),
-        ],
-      ),
-    );
-  }
-}
-
-class ReciveCard extends StatelessWidget {
-  final String title;
-  final DateTime time;
-  final int typeMess;
-  const ReciveCard({
-    Key? key,
-    required this.title,
-    required this.typeMess,
-    required this.time,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(width: 5),
-          Container(
-            height: 25,
-            width: 25,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/doctor1.png',
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 5),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.72,
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            decoration: BoxDecoration(
-              color: AppColors.textColor1.withOpacity(0.1),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(25),
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25),
-              ),
-            ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.72 - 90,
-                    child: (typeMess == 0)
-                        ? Text(
-                            title,
-                            style: const TextStyle(
-                              color: AppColors.textColor1,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
-                            ),
-                          )
-                        : Container(
-                            width:
-                                MediaQuery.of(context).size.width * 0.72 - 90,
-                            height:
-                                MediaQuery.of(context).size.width * 0.72 - 90,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  title,
-                                ),
-                              ),
-                            ),
-                          ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          DateFormat().add_jm().format(time),
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+      itemBuilder: ((context) => menuList),
+      icon: icon,
     );
   }
 }

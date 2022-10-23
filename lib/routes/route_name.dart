@@ -23,4 +23,8 @@ class RouteNames {
   static const String myAppointmentDetailScreen =
       "/my_appointment_detail_screen";
   static const String messageScreen = "/message_screen";
+  static const String successfulScreen = "/successful_screen";
+  static const String writeReviewScreen = "/write_review_screen";
+  static const String callScreen = "/call_screen";
+  static const String callRecordScreen = "/call_record_screen";
 }

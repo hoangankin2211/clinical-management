@@ -10,10 +10,17 @@ import 'package:clinic_manager/features/patient/doctor_detail/screens/patient_de
 import 'package:clinic_manager/features/patient/doctor_detail/screens/payement_screen.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/screens/select_package_screen.dart';
 import 'package:clinic_manager/features/patient/doctor_detail/screens/view_reviews_screen.dart';
+import 'package:clinic_manager/features/patient/history_acti/binding/call_record_binding.dart';
+import 'package:clinic_manager/features/patient/history_acti/screens/call_record_screen.dart';
 import 'package:clinic_manager/features/patient/home/binding/favorite_binding.dart';
 import 'package:clinic_manager/features/patient/home/screens/notification_screen.dart';
+import 'package:clinic_manager/features/patient/list_appointment_screen/binding/call_binding.dart';
 import 'package:clinic_manager/features/patient/list_appointment_screen/binding/message_binding.dart';
+import 'package:clinic_manager/features/patient/list_appointment_screen/binding/successful_binding.dart';
+import 'package:clinic_manager/features/patient/list_appointment_screen/binding/write_review_binding.dart';
+import 'package:clinic_manager/features/patient/list_appointment_screen/screens/call_screen.dart';
 import 'package:clinic_manager/features/patient/list_appointment_screen/screens/message_screeen.dart';
+import 'package:clinic_manager/features/patient/list_appointment_screen/screens/successful_screen.dart';
 import 'package:clinic_manager/features/patient/my_appointment_detail_screen.dart/binding/my_appointment_detail_binding.dart';
 import 'package:clinic_manager/features/patient/my_appointment_detail_screen.dart/screens/my_appointment_detail._screen.dart';
 import 'package:clinic_manager/features/patient/reschedule_apponitment/screens/reason_schedule_change_screen.dart';
@@ -27,6 +34,7 @@ import '../features/patient/home/binding/notification_binding.dart';
 import '../features/patient/home/binding/search_binding.dart';
 import '../features/patient/home/screens/favorite_screen.dart';
 import '../features/patient/home/screens/search_screen.dart';
+import '../features/patient/list_appointment_screen/screens/write_review_screen.dart';
 import '../features/patient/reschedule_apponitment/binding/reason_schedule_change_binding.dart';
 import '../features/splash_intro/screens/intro_screen.dart';
 import '../features/splash_intro/screens/splash_screen.dart';
@@ -116,6 +124,26 @@ class AppPages {
       name: RouteNames.messageScreen,
       page: () => MessageScreen(),
       binding: MessageBinding(),
+    ),
+    GetPage(
+      name: RouteNames.successfulScreen,
+      page: () => SuccessfulScreen(),
+      binding: SuccessfulBinding(),
+    ),
+    GetPage(
+      name: RouteNames.writeReviewScreen,
+      page: () => WriteReviewScreen(),
+      binding: WriteReviewBinding(),
+    ),
+    GetPage(
+      name: RouteNames.callScreen,
+      page: () => CallScreen(),
+      binding: CallBinding(),
+    ),
+    GetPage(
+      name: RouteNames.callRecordScreen,
+      page: () => CallRecordScreen(),
+      binding: CallRecordBinding(),
     ),
   ];
 }

@@ -45,7 +45,7 @@ class MyAppointmentScreen extends StatelessWidget {
               ),
               Tab(
                 icon: Text(
-                  'Cancked',
+                  'Cancled',
                   style: TextStyle(
                       // color: AppColors.primaryColor1,
                       fontWeight: FontWeight.bold,
