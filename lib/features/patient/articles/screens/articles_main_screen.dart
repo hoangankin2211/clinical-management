@@ -1,6 +1,7 @@
 import 'package:clinic_manager/features/patient/articles/screens/articles_detail_screen.dart';
 import 'package:clinic_manager/features/patient/articles/screens/my_bookmark_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -20,17 +21,24 @@ class ArticlesMainScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: InkWell(
-          onTap: () => Get.back(),
-          child: const Icon(Icons.arrow_back, color: AppColors.textColor),
-        ),
-        title: const Text(
-          'Articles',
-          style: TextStyle(
-            color: AppColors.textColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            SvgPicture.asset(
+              'assets/icons/experiences.svg',
+              color: AppColors.primaryColor1,
+              height: 35,
+              width: 35,
+            ),
+            const Text(
+              ' Articles',
+              style: TextStyle(
+                color: AppColors.textColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ],
         ),
         actions: [
           InkWell(

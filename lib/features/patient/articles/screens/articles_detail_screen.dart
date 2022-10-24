@@ -108,6 +108,16 @@ class ArticlesDetailScreen extends StatelessWidget {
                             color: AppColors.primaryColor1, fontSize: 12),
                       ),
                     ),
+                    const Spacer(),
+                    const Icon(Icons.remove_red_eye,
+                        color: AppColors.primaryColor, size: 19),
+                    const Text(
+                      ' 4.6k',
+                      style: TextStyle(
+                          color: AppColors.textColor1,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10.0),
