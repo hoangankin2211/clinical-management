@@ -162,7 +162,8 @@ class DashBoardScreen extends StatelessWidget {
               )
             ],
           ),
-          body: _controller.pages[_controller.page.value],
+          body: IndexedStack(
+              index: _controller.page.value, children: _controller.pages),
         ));
   }
 }

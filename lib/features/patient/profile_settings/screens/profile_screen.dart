@@ -1,4 +1,5 @@
 import 'package:clinic_manager/features/patient/profile_settings/screens/edit_profile_screen.dart';
+import 'package:clinic_manager/features/patient/profile_settings/screens/help_center_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/language_setting_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/notification_settings.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/payement_setting_screen.dart';
@@ -315,7 +316,7 @@ class ProfileScreen extends StatelessWidget {
                 RowProfile(
                   icon: 'assets/icons/experiences.svg',
                   title: 'Help Center',
-                  press: () => Get.to(() => NotificationSettingScreen()),
+                  press: () => Get.to(() => HelpCenterScreen()),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
