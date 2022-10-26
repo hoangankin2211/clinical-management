@@ -1,3 +1,5 @@
+import 'package:clinic_manager/common/widgets/custom_icon.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/screens/doctor_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 
@@ -20,10 +22,26 @@ List<Map<String, dynamic>> listInfo = [
   {
     'name': 'Nguyen Minh Hung',
     'id': '20120491',
+    'image': 'assets/images/hung.png',
+    'ef': 'FrontEnd,BackEnd',
   },
   {
     'name': 'Truong Huynh Duc Hoang',
     'id': '20120483',
+    'image': 'assets/images/hoang.png',
+    'ef': 'FrontEnd,BackEnd',
+  },
+  {
+    'name': 'Phan Thien Nhan',
+    'id': '20120483',
+    'image': 'assets/images/nhan.png',
+    'ef': 'FrontEnd,Designer',
+  },
+  {
+    'name': 'Nguyen Trung Hieu',
+    'id': '20120477',
+    'image': 'assets/images/hieu.png',
+    'ef': 'FrontEnd,Designer',
   },
 ];
 
@@ -68,9 +86,54 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               ],
             ),
             child: Center(
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [],
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 110,
+                    width: 110,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          listInfo[index]['image'],
+                        ),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10.0,
+                          color: AppColors.textColor.withOpacity(0.3),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    listInfo[index]['name'],
+                    style: const TextStyle(
+                        color: AppColors.textColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22),
+                  ),
+                  const SizedBox(height: 2.0),
+                  Text(
+                    listInfo[index]['id'],
+                    style: const TextStyle(
+                        color: AppColors.textColor1,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22),
+                  ),
+                  const SizedBox(height: 2.0),
+                  Text(
+                    listInfo[index]['ef'],
+                    style: const TextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
+                  )
+                ],
               ),
             ),
           ),
@@ -269,7 +332,52 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 children: [
-                  const SizedBox(height: 100.0),
+                  const SizedBox(height: 20.0),
+                  const CustomIcon(size: 100),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        "Cli",
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                        ),
+                      ),
+                      Text(
+                        "manage",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                        ),
+                      )
+                    ],
+                  ),
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Made by a group of Ho Chi Minh \nUniversity of Science VNU-HCM',
+                      style: TextStyle(
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Team Members',
+                      style: TextStyle(
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                  const SizedBox(height: 5.0),
                   SizedBox(
                     height: 280,
                     width: double.infinity,
@@ -277,7 +385,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                       itemBuilder: _buildItemList,
                       itemSize: 350,
                       dynamicItemSize: true,
-                      itemCount: 3,
+                      itemCount: listInfo.length,
                       onItemFocus: (value) {},
                     ),
                   ),
