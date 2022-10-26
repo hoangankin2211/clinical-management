@@ -12,74 +12,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../services/socket_services.dart';
 
-// class DashBoardScreen extends StatefulWidget {
-//   const DashBoardScreen({super.key});
-
-//   @override
-//   State<DashBoardScreen> createState() => _DashBoardScreenState();
-// }
-
-// class _DashBoardScreenState extends State<DashBoardScreen> {
-//   // late IO.Socket socket;
-//   RxInt _counter = 0.obs;
-//   // int _counter = 0;
-//   final socket = SocketServices().socketClient;
-//   // void connect() {
-//   //   // ignore: avoid_print
-//   //   print("Connecting socket");
-//   //   socket = IO.io(ApiLink.uri, <String, dynamic>{
-//   //     'transports': ['websocket'],
-//   //     'autoConnect': false,
-//   //   });
-//   //   socket.connect();
-//   //   socket.onConnect((data) => {print("Connected")});
-//   //   // ignore: avoid_print
-//   //   print("connect socket: ${socket.connected}");
-//   // }
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // connect();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final User _user = AuthService.instance.user;
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () => AuthService.instance.logOut(context),
-//         child: const Icon(Icons.add),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Obx(
-//               () => Text(
-//                 _counter.value.toString(),
-//                 style: const TextStyle(
-//                   color: Colors.black,
-//                   fontWeight: FontWeight.bold,
-//                   fontSize: 20,
-//                 ),
-//               ),
-//             ),
-//             CustomButton(
-//                 text: 'Counter',
-//                 onTap: () => {
-//                       socket.emit('fromClient', _counter.value),
-//                       socket.on('fromServer', (data) {
-//                         _counter.value = int.parse(data);
-//                       })
-//                     })
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 class DashBoardScreen extends StatelessWidget {
   final _controller = Get.find<DashboardController>();
   DashBoardScreen({super.key});
@@ -230,7 +162,8 @@ class DashBoardScreen extends StatelessWidget {
               )
             ],
           ),
-          body: _controller.pages[_controller.page.value],
+          body: IndexedStack(
+              index: _controller.page.value, children: _controller.pages),
         ));
   }
 }

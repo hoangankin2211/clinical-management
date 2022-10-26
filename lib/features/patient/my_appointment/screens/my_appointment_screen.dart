@@ -1,7 +1,13 @@
 import 'package:clinic_manager/constants/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../routes/route_name.dart';
+import '../widgets/cancelled_card.dart';
+import '../widgets/completed_card.dart';
+import '../widgets/upcoming_card.dart';
 
 class MyAppointmentScreen extends StatelessWidget {
   const MyAppointmentScreen({super.key});
@@ -39,7 +45,7 @@ class MyAppointmentScreen extends StatelessWidget {
               ),
               Tab(
                 icon: Text(
-                  'Cancked',
+                  'Cancled',
                   style: TextStyle(
                       // color: AppColors.primaryColor1,
                       fontWeight: FontWeight.bold,
@@ -95,18 +101,27 @@ class MyAppointmentScreen extends StatelessWidget {
                     image: 'assets/images/doctor1.png',
                     type: 0,
                     time: DateTime.now(),
+                    cancelled: () async {
+                      await showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (builder) => BottomCancelled(),
+                      );
+                    },
                   ),
                   UpcomingCard(
                     name: 'Dr.Jenny Waston',
                     type: 1,
                     image: 'assets/images/doctor2.png',
                     time: DateTime.now(),
+                    cancelled: () {},
                   ),
                   UpcomingCard(
                     name: 'Dr.Jenny Waston',
                     type: 2,
                     image: 'assets/images/doctor3.png',
                     time: DateTime.now(),
+                    cancelled: () {},
                   ),
                 ],
               ),
@@ -176,459 +191,133 @@ class MyAppointmentScreen extends StatelessWidget {
   }
 }
 
-class UpcomingCard extends StatelessWidget {
-  final String name;
-  final String image;
-  final int type;
-  final DateTime time;
-
-  const UpcomingCard({
+class BottomCancelled extends StatelessWidget {
+  const BottomCancelled({
     Key? key,
-    required this.name,
-    required this.image,
-    required this.type,
-    required this.time,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> listPackage = [
-      {
-        'image': 'assets/icons/chat.svg',
-        'mainTitle': 'Messaging',
-      },
-      {
-        'image': 'assets/icons/call.svg',
-        'mainTitle': 'Voice Call',
-      },
-      {
-        'image': 'assets/icons/experiences.svg',
-        'mainTitle': 'Advise',
-      }
-    ];
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: AppColors.backgroudColor,
-        boxShadow: [
-          BoxShadow(
-              color: AppColors.textColor.withOpacity(0.2),
-              blurRadius: 10.0,
-              offset: const Offset(5.0, 5.0)),
-        ],
+      height: 300,
+      // padding: const EdgeInsets.all(10.0),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+        color: Colors.white,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(image),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 7.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        color: AppColors.textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+          const SizedBox(height: 10),
+          Container(
+            width: 80,
+            height: 5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: AppColors.textColor1.withOpacity(0.2),
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            'Cancel Appointment',
+            style: TextStyle(
+                color: Colors.red, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          const SizedBox(height: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Divider(color: AppColors.textColor1),
+          ),
+          const SizedBox(height: 10.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text('Are you sure you want to cancel your appointment',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: AppColors.textColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14)),
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                  'Only 50% of the funs will be returned to your account',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: AppColors.textColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14)),
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Divider(color: AppColors.textColor1),
+          ),
+          const SizedBox(height: 10.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(30.0),
+                    onTap: () => Get.back(),
+                    child: Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: AppColors.primaryColor.withOpacity(0.4),
+                      ),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text(
-                          '${listPackage[type]['mainTitle']} - ',
-                          style: const TextStyle(
-                              color: AppColors.textColor, fontSize: 11),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                                width: 1, color: AppColors.primaryColor1),
-                          ),
-                          child: const Text(
-                            'Upcoming',
-                            style: TextStyle(
-                              color: AppColors.primaryColor1,
-                              fontSize: 11,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      '${DateFormat().add_MEd().format(time)} | ${DateFormat().add_jms().format(time)}',
-                      style: const TextStyle(
-                          color: AppColors.textColor, fontSize: 12),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primaryColor.withOpacity(0.3),
-                ),
-                child: SvgPicture.asset(listPackage[type]['image'],
-                    height: 30.0, width: 30.0, color: AppColors.primaryColor1),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          const Divider(color: AppColors.textColor),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(
-                              width: 2,
-                              color: AppColors.primaryColor1,
-                            )),
-                        child: const Text(
-                          'Cancel Appointment',
-                          style: TextStyle(
-                              color: AppColors.primaryColor1,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12),
-                        ))),
-              ),
-              const SizedBox(width: 10.0),
-              Expanded(
-                child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: AppColors.primaryColor1),
-                        child: const Text(
-                          'Reschedule',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12),
-                        ))),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CompletedCard extends StatelessWidget {
-  final String name;
-  final String image;
-  final int type;
-  final DateTime time;
-
-  const CompletedCard({
-    Key? key,
-    required this.name,
-    required this.image,
-    required this.type,
-    required this.time,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    List<Map<String, dynamic>> listPackage = [
-      {
-        'image': 'assets/icons/chat.svg',
-        'mainTitle': 'Messaging',
-      },
-      {
-        'image': 'assets/icons/call.svg',
-        'mainTitle': 'Voice Call',
-      },
-      {
-        'image': 'assets/icons/experiences.svg',
-        'mainTitle': 'Advise',
-      }
-    ];
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: AppColors.backgroudColor,
-        boxShadow: [
-          BoxShadow(
-              color: AppColors.textColor.withOpacity(0.2),
-              blurRadius: 10.0,
-              offset: const Offset(5.0, 5.0)),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(image),
                   ),
                 ),
-              ),
-              const SizedBox(width: 7.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        color: AppColors.textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                const SizedBox(width: 20),
+                Expanded(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(30.0),
+                    onTap: () => Get.toNamed(
+                        RouteNames.reasonScheduleChangeScreen,
+                        arguments: "Cancel Appointment"),
+                    child: Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: AppColors.primaryColor,
+                      ),
+                      child: const Text(
+                        'Yes, Remove',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text(
-                          '${listPackage[type]['mainTitle']} - ',
-                          style: const TextStyle(
-                              color: AppColors.textColor, fontSize: 11),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(width: 1, color: Colors.green),
-                          ),
-                          child: const Text(
-                            'Upcoming',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 11,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      '${DateFormat().add_MEd().format(time)} | ${DateFormat().add_jms().format(time)}',
-                      style: const TextStyle(
-                          color: AppColors.textColor, fontSize: 12),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primaryColor.withOpacity(0.3),
-                ),
-                child: SvgPicture.asset(listPackage[type]['image'],
-                    height: 30.0, width: 30.0, color: AppColors.primaryColor1),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          const Divider(color: AppColors.textColor),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(
-                              width: 2,
-                              color: AppColors.primaryColor1,
-                            )),
-                        child: const Text(
-                          'Book Again',
-                          style: TextStyle(
-                              color: AppColors.primaryColor1,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12),
-                        ))),
-              ),
-              const SizedBox(width: 10.0),
-              Expanded(
-                child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: AppColors.primaryColor1),
-                        child: const Text(
-                          'Leave a Review',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12),
-                        ))),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CancelledCard extends StatelessWidget {
-  final String name;
-  final String image;
-  final int type;
-  final DateTime time;
-
-  const CancelledCard({
-    Key? key,
-    required this.name,
-    required this.image,
-    required this.type,
-    required this.time,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    List<Map<String, dynamic>> listPackage = [
-      {
-        'image': 'assets/icons/chat.svg',
-        'mainTitle': 'Messaging',
-      },
-      {
-        'image': 'assets/icons/call.svg',
-        'mainTitle': 'Voice Call',
-      },
-      {
-        'image': 'assets/icons/experiences.svg',
-        'mainTitle': 'Advise',
-      }
-    ];
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: AppColors.backgroudColor,
-        boxShadow: [
-          BoxShadow(
-              color: AppColors.textColor.withOpacity(0.2),
-              blurRadius: 10.0,
-              offset: const Offset(5.0, 5.0)),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(image),
                   ),
                 ),
-              ),
-              const SizedBox(width: 7.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        color: AppColors.textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text(
-                          '${listPackage[type]['mainTitle']} - ',
-                          style: const TextStyle(
-                              color: AppColors.textColor, fontSize: 11),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(width: 1, color: Colors.red),
-                          ),
-                          child: const Text(
-                            'Upcoming',
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 11,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      '${DateFormat().add_MEd().format(time)} | ${DateFormat().add_jms().format(time)}',
-                      style: const TextStyle(
-                          color: AppColors.textColor, fontSize: 12),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primaryColor.withOpacity(0.3),
-                ),
-                child: SvgPicture.asset(listPackage[type]['image'],
-                    height: 30.0, width: 30.0, color: AppColors.primaryColor1),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

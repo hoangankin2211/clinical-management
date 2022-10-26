@@ -21,7 +21,14 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: AppColors.backgroudColor,
+      bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: CustomButton(
+            onTap: () => Get.toNamed(RouteNames.reviewSumaryScreen),
+            text: 'Next',
+          )),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -99,12 +106,6 @@ class PaymentScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 100),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CustomButton(
-                onTap: () => Get.toNamed(RouteNames.reviewSumaryScreen),
-                text: 'Next',
-              )),
         ],
       ),
     );

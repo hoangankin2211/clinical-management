@@ -1,4 +1,7 @@
+import 'package:clinic_manager/features/patient/articles/screens/articles_main_screen.dart';
+import 'package:clinic_manager/features/patient/history_acti/screens/history_acti_screen.dart';
 import 'package:clinic_manager/features/patient/my_appointment/screens/my_appointment_screen.dart';
+import 'package:clinic_manager/features/patient/profile_settings/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,9 +12,9 @@ class DashboardController extends GetxController {
   List<Widget> pages = [
     HomeScreen(),
     MyAppointmentScreen(),
-    const Center(child: Text('History')),
-    const Center(child: Text('Articles')),
-    const Center(child: Text('profiles')),
+    HistoryActiScreen(),
+    ArticlesMainScreen(),
+    ProfileScreen(),
   ];
 
   void updatePage(int value) {

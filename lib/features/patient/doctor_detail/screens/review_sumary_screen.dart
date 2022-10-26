@@ -13,7 +13,14 @@ class ReviewSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: AppColors.backgroudColor,
+      bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: CustomButton(
+            onTap: () => Get.toNamed(RouteNames.enterPinScreen),
+            text: 'Next',
+          )),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -157,12 +164,6 @@ class ReviewSummaryScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20.0),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CustomButton(
-                onTap: () => Get.toNamed(RouteNames.enterPinScreen),
-                text: 'Next',
-              )),
         ],
       ),
     );

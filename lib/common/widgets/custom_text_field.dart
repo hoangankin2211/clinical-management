@@ -82,27 +82,29 @@ class CustomTextField1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: AppColors.primaryColor.withOpacity(0.15),
+      ),
+      child: TextFormField(
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        controller: controller,
+        decoration: InputDecoration(
           focusColor: AppColors.textColor1,
           // fillColor: GlobalVariables.secondaryColor,
           hintText: hintText,
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(
-            color: Colors.black38,
-          )),
-          enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(
-            color: Colors.black38,
-          ))),
-      validator: (val) {
-        if (val == null || val.isEmpty) {
-          return 'Enter your $hintText';
-        }
-        return null;
-      },
-      maxLines: maxLines,
+          hintStyle: const TextStyle(fontSize: 14), border: InputBorder.none,
+        ),
+        validator: (val) {
+          if (val == null || val.isEmpty) {
+            return 'Enter your $hintText';
+          }
+          return null;
+        },
+        maxLines: maxLines,
+      ),
     );
   }
 }

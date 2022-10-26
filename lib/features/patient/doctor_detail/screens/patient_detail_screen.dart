@@ -12,7 +12,14 @@ class PatientDetailScsreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: AppColors.backgroudColor,
+      bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: CustomButton(
+            onTap: () => Get.toNamed(RouteNames.payementScreen),
+            text: 'Next',
+          )),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -174,12 +181,6 @@ class PatientDetailScsreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 40.0),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CustomButton(
-                onTap: () => Get.toNamed(RouteNames.payementScreen),
-                text: 'Next',
-              )),
         ],
       ),
     );
