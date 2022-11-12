@@ -56,4 +56,35 @@ class ProfileSettingController extends GetxController {
       showDialogChagepassword('Newpass is too short', context);
     }
   }
+
+  //======================Edit profile field====================
+  final RxBool isLoading1 = false.obs;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final Rx<DateTime> dateBorn = DateTime.now().obs;
+  final RxString genderText = ''.obs;
+
+  void editProfile(BuildContext context) async {
+    var timeStamp = dateBorn.value.millisecondsSinceEpoch;
+    _auth.editProfile(
+        name: nameController.text,
+        email: _auth.user.email,
+        gender: genderText.value,
+        phoneNumber: '0935703991',
+        address: 'An Khe Gia Lai',
+        dateBorn: timeStamp,
+        callBack: () {
+          isLoading1.value = false;
+          update();
+          showDialog(
+            context: context,
+            builder: (context) => const SuccessDialog(
+              question: "Edit Profile",
+              title1: "Edit Profile Success",
+            ),
+          );
+        },
+        context: context);
+  }
 }
