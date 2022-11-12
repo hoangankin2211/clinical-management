@@ -42,6 +42,10 @@ const userSchema = mongoose.Schema({
     dateBorn: {
         type: Number,
         default: 0,
+    },
+    avt: {
+        type: String,
+        default: '',
     }
     //Cart 
 });

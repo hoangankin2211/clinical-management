@@ -15,6 +15,7 @@ class User {
     required this.gender,
     required this.phoneNumber,
     required this.dateBorn,
+    required this.avt,
   });
 
   String name;
@@ -26,6 +27,7 @@ class User {
   String token;
   String gender;
   String phoneNumber;
+  String avt;
   DateTime dateBorn;
   factory User.fromMap(Map<String, dynamic> json) => User(
         name: json["name"],
@@ -38,6 +40,7 @@ class User {
         gender: json["gender"],
         phoneNumber: json["phoneNumber"],
         dateBorn: DateTime.fromMillisecondsSinceEpoch(json["dateBorn"]),
+        avt: json["avt"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +54,7 @@ class User {
         "gender": gender,
         "phoneNumber": phoneNumber,
         "dateBorn": dateBorn,
+        "avt": avt,
       };
   factory User.fromJson(String source) => User.fromMap(json.decode(source));
 
@@ -65,6 +69,7 @@ class User {
     String? gender,
     String? phoneNumber,
     DateTime? dateBorn,
+    String? avt,
   }) {
     return User(
       id: id ?? this.id,
@@ -77,6 +82,7 @@ class User {
       gender: gender ?? this.gender,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       dateBorn: dateBorn ?? this.dateBorn,
+      avt: avt ?? this.avt,
     );
   }
 }

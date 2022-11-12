@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:clinic_manager/constants/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +13,7 @@ import '../constants/api_link.dart';
 import '../constants/error_handing.dart';
 import '../models/user.dart';
 import '../routes/route_name.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
 
 class AuthService extends ChangeNotifier {
   AuthService._privateConstructor();
@@ -26,6 +30,7 @@ class AuthService extends ChangeNotifier {
     gender: '',
     phoneNumber: '',
     dateBorn: DateTime.now(),
+    avt: '',
   );
   User get user => _user;
   void setUser(String user) {
@@ -108,6 +113,45 @@ class AuthService extends ChangeNotifier {
       updataLoading();
     }
     updataLoading();
+  }
+
+  void updateAvata(
+      {required File file,
+      required String email,
+      required BuildContext context,
+      required VoidCallback callback}) async {
+    try {
+      final cloudinary = CloudinaryPublic('ddopvilpr', 'evzte9pr');
+      CloudinaryResponse imageRes = await cloudinary.uploadFile(
+        CloudinaryFile.fromFile(file.path,
+            resourceType: CloudinaryResourceType.Image, folder: email),
+      );
+      String imageUrl = imageRes.secureUrl;
+      http.Response res = await http.post(
+        Uri.parse(
+          '${ApiLink.uri}/api/updateAvata',
+        ),
+        body: jsonEncode(
+          {
+            'email': email,
+            'image': imageUrl,
+          },
+        ),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(res.body);
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          callback();
+        },
+      );
+    } catch (err) {
+      callback();
+    }
   }
 
   void editProfile({

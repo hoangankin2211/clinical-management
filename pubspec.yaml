@@ -50,6 +50,9 @@ dependencies:
   table_calendar: ^3.0.7
   flutter_rating_bar: ^4.0.1
   scroll_snap_list: ^0.9.1
+  image_picker: ^0.8.6
+  cloudinary_public: ^0.13.0
+  file_picker: ^5.2.2
   
 
 

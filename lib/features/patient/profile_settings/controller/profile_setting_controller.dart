@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:clinic_manager/common/widgets/custom_dialog_error/error_dialog.dart';
 import 'package:clinic_manager/common/widgets/custom_dialog_error/success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../models/user.dart';
 import '../../../../services/auth_services.dart';
@@ -10,6 +13,29 @@ class ProfileSettingController extends GetxController {
   final _auth = AuthService.instance;
   User getUser() => _auth.user;
   final RxBool isLoading = false.obs;
+
+  final Rx<User> _user = Rx<User>(
+    User(
+      name: '',
+      email: '',
+      password: '',
+      address: '',
+      type: '',
+      id: '',
+      token: '',
+      gender: '',
+      phoneNumber: '',
+      dateBorn: DateTime.now(),
+      avt: '',
+    ),
+  );
+
+  User get user => _user.value;
+
+  void onInit() {
+    super.onInit();
+    _user.value = _auth.user;
+  }
 
   //==================Security fiel======================
   final TextEditingController passwordController = TextEditingController();
@@ -67,6 +93,7 @@ class ProfileSettingController extends GetxController {
 
   void editProfile(BuildContext context) async {
     var timeStamp = dateBorn.value.millisecondsSinceEpoch;
+    isLoading1.value = true;
     _auth.editProfile(
         name: nameController.text,
         email: _auth.user.email,
@@ -76,6 +103,7 @@ class ProfileSettingController extends GetxController {
         dateBorn: timeStamp,
         callBack: () {
           isLoading1.value = false;
+          _user.value = _auth.user;
           update();
           showDialog(
             context: context,
@@ -86,5 +114,27 @@ class ProfileSettingController extends GetxController {
           );
         },
         context: context);
+  }
+
+  final RxBool isLoading2 = false.obs;
+
+  void updateAvt(BuildContext context, File file) async {
+    isLoading2.value = true;
+    _auth.updateAvata(
+      file: file,
+      email: _auth.user.email,
+      context: context,
+      callback: () {
+        isLoading2.value = false;
+        update();
+        showDialog(
+          context: context,
+          builder: (context) => const SuccessDialog(
+            question: "Change Avt",
+            title1: "Change Avt Success",
+          ),
+        );
+      },
+    );
   }
 }
