@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       controller: EventController(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Clinical management',
         theme: ThemeData(
           fontFamily: 'Montserrat',
           // fontFamily: 'Montserrat',

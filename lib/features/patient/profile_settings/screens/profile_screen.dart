@@ -1,3 +1,4 @@
+import 'package:clinic_manager/features/patient/profile_settings/controller/profile_setting_controller.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/edit_profile_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/help_center_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/language_setting_screen.dart';
@@ -10,11 +11,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/app_color.dart';
+import '../widgets/bottom_log_out.dart';
 import 'invite_friend_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
   RxBool check = false.obs;
+  final _controller = Get.put(ProfileSettingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () => print(AuthService.instance.user.password),
             child: const Icon(Icons.more_horiz, color: AppColors.textColor),
           ),
           const SizedBox(width: 10),
@@ -90,17 +93,17 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text(
-                              'Nguyen Minh Hung',
-                              style: TextStyle(
+                              _controller.getUser().name,
+                              style: const TextStyle(
                                   color: AppColors.textColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
                           InkWell(
-                            onTap: () => Get.to(EditProfileScreen()),
+                            onTap: () => Get.to(() => EditProfileScreen()),
                             child: Container(
                               padding: const EdgeInsets.all(3.0),
                               decoration: BoxDecoration(
@@ -130,12 +133,12 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       Row(
-                        children: const [
-                          Icon(Icons.email,
+                        children: [
+                          const Icon(Icons.email,
                               color: AppColors.primaryColor1, size: 15),
                           Text(
-                            ' hungngnyen.201102ak@gmail.com',
-                            style: TextStyle(
+                            ' ${_controller.getUser().email}',
+                            style: const TextStyle(
                                 color: AppColors.textColor,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w500),
@@ -143,12 +146,12 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       Row(
-                        children: const [
-                          Icon(Icons.person,
+                        children: [
+                          const Icon(Icons.person,
                               color: AppColors.primaryColor1, size: 15),
                           Text(
-                            ' Male',
-                            style: TextStyle(
+                            ' ${_controller.getUser().gender}',
+                            style: const TextStyle(
                                 color: AppColors.textColor,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w500),
@@ -400,125 +403,6 @@ class RowProfile extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class BottomLogout extends StatelessWidget {
-  BottomLogout({
-    Key? key,
-  }) : super(key: key);
-  final AuthService _auth = AuthService.instance;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 230,
-      // padding: const EdgeInsets.all(10.0),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-        ),
-        color: Colors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10),
-          Container(
-            width: 80,
-            height: 5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: AppColors.textColor1.withOpacity(0.2),
-            ),
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            'Log Out',
-            style: TextStyle(
-                color: Colors.red, fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Divider(color: AppColors.textColor1),
-          ),
-          const SizedBox(height: 10.0),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text('Are you sure you want to log out?',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: AppColors.textColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14)),
-            ),
-          ),
-          const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Divider(color: AppColors.textColor1),
-          ),
-          const SizedBox(height: 10.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(30.0),
-                    onTap: () => Get.back(),
-                    child: Container(
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        color: AppColors.primaryColor.withOpacity(0.4),
-                      ),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(30.0),
-                    onTap: () => _auth.logOut(context),
-                    child: Container(
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        color: AppColors.primaryColor,
-                      ),
-                      child: const Text(
-                        'Yes, Logout',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -12,6 +12,9 @@ class User {
     required this.type,
     required this.id,
     required this.token,
+    required this.gender,
+    required this.phoneNumber,
+    required this.dateBorn,
   });
 
   String name;
@@ -21,7 +24,9 @@ class User {
   String type;
   String id;
   String token;
-
+  String gender;
+  String phoneNumber;
+  DateTime dateBorn;
   factory User.fromMap(Map<String, dynamic> json) => User(
         name: json["name"],
         email: json["email"],
@@ -30,6 +35,9 @@ class User {
         type: json["type"],
         id: json["_id"],
         token: json["token"],
+        gender: json["gender"],
+        phoneNumber: json["phoneNumber"],
+        dateBorn: DateTime.fromMillisecondsSinceEpoch(json["dateBorn"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +48,9 @@ class User {
         "type": type,
         "_id": id,
         "token": token,
+        "gender": gender,
+        "phoneNumber": phoneNumber,
+        "dateBorn": dateBorn,
       };
   factory User.fromJson(String source) => User.fromMap(json.decode(source));
 
@@ -51,6 +62,9 @@ class User {
     String? address,
     String? type,
     String? token,
+    String? gender,
+    String? phoneNumber,
+    DateTime? dateBorn,
   }) {
     return User(
       id: id ?? this.id,
@@ -60,6 +74,9 @@ class User {
       address: address ?? this.address,
       type: type ?? this.type,
       token: token ?? this.token,
+      gender: gender ?? this.gender,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      dateBorn: dateBorn ?? this.dateBorn,
     );
   }
 }

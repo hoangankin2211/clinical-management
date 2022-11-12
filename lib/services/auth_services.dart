@@ -23,6 +23,9 @@ class AuthService extends ChangeNotifier {
     type: '',
     id: '',
     token: '',
+    gender: '',
+    phoneNumber: '',
+    dateBorn: DateTime.now(),
   );
   User get user => _user;
   void setUser(String user) {
@@ -105,6 +108,81 @@ class AuthService extends ChangeNotifier {
       updataLoading();
     }
     updataLoading();
+  }
+
+  void editProfile({
+    required String name,
+    required String email,
+    required String gender,
+    required String phoneNumber,
+    required String address,
+    required var dateBorn,
+    required VoidCallback callBack,
+    required BuildContext context,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse(
+          '${ApiLink.uri}/api/editProfile',
+        ),
+        body: jsonEncode({
+          'email': email,
+          'name': name,
+          'gender': gender,
+          'phoneNumber': phoneNumber,
+          'dateBorn': dateBorn,
+          'address': address,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(res.body);
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          AuthService.instance.setUser(res.body);
+          callBack();
+        },
+      );
+    } catch (e) {
+      callBack();
+    }
+  }
+
+  void changePassWord(
+      {required String password,
+      required String newPassword,
+      required BuildContext context,
+      required VoidCallback callBack}) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse(
+          '${ApiLink.uri}/api/changePassword',
+        ),
+        body: jsonEncode({
+          'email': AuthService.instance.user.email,
+          'password': password,
+          'newPassword': newPassword,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(res.body);
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          AuthService.instance.setUser(res.body);
+          callBack();
+        },
+      );
+    } catch (e) {
+      callBack();
+    }
+    callBack();
   }
 }
 

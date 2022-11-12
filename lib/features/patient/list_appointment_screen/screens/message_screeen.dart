@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:async';
 
+import '../../../../common/widgets/pop_up_men.dart';
 import '../../../../constants/app_color.dart';
 import '../../../../routes/route_name.dart';
 import '../widgets/audio_mess.dart';
@@ -418,24 +419,6 @@ class _MessageScreenState extends State<MessageScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class PopUpMen extends StatelessWidget {
-  final List<PopupMenuEntry> menuList;
-  final Widget? icon;
-  const PopUpMen({Key? key, required this.menuList, this.icon})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      itemBuilder: ((context) => menuList),
-      icon: icon,
     );
   }
 }

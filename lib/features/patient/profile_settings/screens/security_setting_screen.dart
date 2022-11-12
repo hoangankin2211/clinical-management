@@ -1,10 +1,12 @@
 import 'package:clinic_manager/common/widgets/custom_button.dart';
 import 'package:clinic_manager/common/widgets/custom_password_field.dart';
 import 'package:clinic_manager/common/widgets/custom_text_field.dart';
+import 'package:clinic_manager/features/patient/profile_settings/controller/profile_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/app_color.dart';
+import '../../../../services/auth_services.dart';
 
 List<String> listTitle = [
   "Remember Me",
@@ -17,7 +19,7 @@ class SecuritySettingScreen extends StatelessWidget {
   final TextEditingController password = TextEditingController();
   final TextEditingController newPass = TextEditingController();
   final TextEditingController rePass = TextEditingController();
-
+  final _controller = Get.find<ProfileSettingController>();
   List<RxBool> checkSwitch = [
     for (int i = 0; i < listTitle.length; i++) false.obs
   ];
@@ -118,24 +120,43 @@ class SecuritySettingScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20.0),
                 CustomPasswordField(
-                  controller: password,
+                  controller: _controller.passwordController,
                   hintText: "Enter Your Passwrod",
                   labelText: "Password",
                 ),
                 const SizedBox(height: 20.0),
                 CustomPasswordField(
-                  controller: newPass,
+                  controller: _controller.newpasswordController,
                   hintText: "Enter New Pasaword",
                   labelText: "New Password",
                 ),
                 const SizedBox(height: 20.0),
                 CustomPasswordField(
-                  controller: rePass,
+                  controller: _controller.rePasswordController,
                   hintText: "Enter Re Password",
                   labelText: "Re Password",
                 ),
                 const SizedBox(height: 10.0),
-                CustomButton(text: 'Change Password', onTap: () {})
+                Obx(
+                  () => ElevatedButton(
+                    onPressed: () => _controller.changePassword(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor,
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    child: _controller.isLoading.value
+                        ? const Center(
+                            child:
+                                CircularProgressIndicator(color: Colors.white))
+                        : const Text(
+                            'Change Password',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                  ),
+                ),
               ],
             ),
           ),
