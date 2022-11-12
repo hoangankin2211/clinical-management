@@ -39,7 +39,7 @@ dependencies:
   calendar_view: ^1.0.0
   get: ^4.6.5
   http: ^0.13.5
-  provider: ^6.0.4
+  provider: ^6.0.4  
   shared_preferences: ^2.0.15
   badges: ^2.0.3
   socket_io_client: ^1.0.2
@@ -50,6 +50,7 @@ dependencies:
   table_calendar: ^3.0.7
   flutter_rating_bar: ^4.0.1
   scroll_snap_list: ^0.9.1
+  ip_address: ^1.0.0
   
 
 

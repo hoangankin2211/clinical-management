@@ -1,3 +1,4 @@
+import 'package:clinic_manager/features/patient/profile_settings/controller/profile_setting_controller.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/edit_profile_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/help_center_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/language_setting_screen.dart';
@@ -15,6 +16,7 @@ import 'invite_friend_screen.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
   RxBool check = false.obs;
+  final _controller = Get.put(ProfileSettingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () => print(AuthService.instance.user.password),
             child: const Icon(Icons.more_horiz, color: AppColors.textColor),
           ),
           const SizedBox(width: 10),
@@ -90,10 +92,10 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text(
-                              'Nguyen Minh Hung',
-                              style: TextStyle(
+                              _controller.getUser().name,
+                              style: const TextStyle(
                                   color: AppColors.textColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
@@ -130,12 +132,12 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       Row(
-                        children: const [
-                          Icon(Icons.email,
+                        children: [
+                          const Icon(Icons.email,
                               color: AppColors.primaryColor1, size: 15),
                           Text(
-                            ' hungngnyen.201102ak@gmail.com',
-                            style: TextStyle(
+                            ' ${_controller.getUser().email}',
+                            style: const TextStyle(
                                 color: AppColors.textColor,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w500),

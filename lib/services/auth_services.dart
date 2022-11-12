@@ -106,6 +106,39 @@ class AuthService extends ChangeNotifier {
     }
     updataLoading();
   }
+
+  void changePassWord(
+      {required String password,
+      required String newPassword,
+      required BuildContext context,
+      required VoidCallback callBack}) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse(
+          '${ApiLink.uri}/api/changePassword',
+        ),
+        body: jsonEncode({
+          'email': AuthService.instance.user.email,
+          'password': password,
+          'newPassword': newPassword,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(res.body);
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          callBack();
+        },
+      );
+    } catch (e) {
+      callBack();
+    }
+    callBack();
+  }
 }
 
   // var response = jsonDecode(tokenRes.body);
