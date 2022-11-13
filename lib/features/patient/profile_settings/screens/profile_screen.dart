@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:clinic_manager/common/widgets/custom_button.dart';
+import 'package:clinic_manager/common/widgets/custom_dialog_error/error_dialog.dart';
 import 'package:clinic_manager/features/patient/profile_settings/controller/profile_setting_controller.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/edit_profile_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/help_center_screen.dart';
@@ -555,8 +556,13 @@ class _BottomChangeAvtState extends State<BottomChangeAvt> {
                       width: 200.0,
                       child: Obx(
                         () => ElevatedButton(
-                          onPressed: () =>
-                              _controller.updateAvt(context, _image!),
+                          onPressed: () => (_image != null)
+                              ? _controller.updateAvt(context, _image!)
+                              : showDialog(
+                                  context: context,
+                                  builder: (context) => const ErrorDialog(
+                                      question: "Update Avata",
+                                      title1: "Please choose your avt")),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryColor,
                             minimumSize: const Size(double.infinity, 50),

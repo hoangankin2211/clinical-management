@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema({
     },
     type: {
         type: String,
-        default: 'user',
+        default: 'user', //user admin  doctor
     },
     gender: {
         type: String,
