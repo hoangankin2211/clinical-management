@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:clinic_manager/common/widgets/custom_button.dart';
 import 'package:clinic_manager/common/widgets/custom_dialog_error/error_dialog.dart';
+import 'package:clinic_manager/common/widgets/custom_dialog_error/success_dialog.dart';
 import 'package:clinic_manager/features/patient/profile_settings/controller/profile_setting_controller.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/edit_profile_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/help_center_screen.dart';
@@ -11,6 +12,7 @@ import 'package:clinic_manager/features/patient/profile_settings/screens/notific
 import 'package:clinic_manager/features/patient/profile_settings/screens/payement_setting_screen.dart';
 import 'package:clinic_manager/features/patient/profile_settings/screens/security_setting_screen.dart';
 import 'package:clinic_manager/services/auth_services.dart';
+import 'package:clinic_manager/services/data_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -24,11 +26,7 @@ import 'invite_friend_screen.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
   RxBool check = false.obs;
-  Uint8List? _image;
   final _controller = Get.put(ProfileSettingController());
-  void selectedImage() async {
-    Uint8List? file = await pickImage(ImageSource.gallery);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: () => print(AuthService.instance.user.password),
+            onTap: () {},
             child: const Icon(Icons.more_horiz, color: AppColors.textColor),
           ),
           const SizedBox(width: 10),
@@ -352,7 +350,7 @@ class ProfileScreen extends StatelessWidget {
                       await showModalBottomSheet(
                         backgroundColor: Colors.transparent,
                         context: context,
-                        builder: (builder) => BottomChangeAvt(),
+                        builder: (builder) => BottomLogout(),
                       );
                     },
                     child: Row(

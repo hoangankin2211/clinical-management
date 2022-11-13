@@ -1,3 +1,7 @@
 import 'package:get/get.dart';
 
-class DoctorDetailController extends GetxController {}
+import '../../../../models/doctor.dart';
+
+class DoctorDetailController extends GetxController {
+  final Doctor doctor = Get.arguments["doctor"] as Doctor;
+}

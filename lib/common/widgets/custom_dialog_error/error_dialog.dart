@@ -54,7 +54,7 @@ class ErrorDialog extends StatelessWidget {
                 height: 50,
                 width: Get.mediaQuery.size.width * 0.7,
                 child: Text(
-                  title1,
+                  title1 == null ? 'Null' : '',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.blueGrey,

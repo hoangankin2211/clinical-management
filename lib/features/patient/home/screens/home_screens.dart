@@ -1,10 +1,13 @@
 import 'package:clinic_manager/constants/fake_data.dart';
+import 'package:clinic_manager/features/patient/home/controller/home_screen_controller.dart';
 import 'package:clinic_manager/features/patient/home/screens/top_doctor_screen.dart';
+import 'package:clinic_manager/services/data_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../../constants/app_color.dart';
+import '../../../../models/doctor.dart';
 import '../../../../routes/route_name.dart';
 import '../widgets/doctor_card.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -44,141 +47,156 @@ List<Map<String, dynamic>> fakeItem = [
   },
 ];
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   RxInt selectTop = 0.obs;
+  final _controller = Get.put(HomeScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor.withOpacity(0.05),
-      body: ListView(
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        children: [
-          _headerView(),
-          const SizedBox(height: 5),
-          _searchView(),
-          const SizedBox(height: 20),
-          _checkHealthView(),
-          const SizedBox(height: 20),
-          _row(
-              header1: 'Doctor Speciality',
-              header2: 'See More',
-              context: context),
-          const SizedBox(height: 10),
-          SizedBox(
-            width: double.infinity,
-            height: 80,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics()),
-              children: [
-                // const SizedBox(width: 10),
-                ...fakeItem.map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(60),
-                      onTap: () {},
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.primaryColor.withOpacity(0.1),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            child: SvgPicture.asset(e['image'],
-                                height: 30,
-                                width: 30,
-                                color: AppColors.primaryColor1),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            e['name'],
-                            style: const TextStyle(
-                              color: AppColors.textColor1,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
+        backgroundColor: AppColors.primaryColor.withOpacity(0.05),
+        body: ListView(
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
           ),
-          const SizedBox(height: 10),
-          _row(header1: 'Top Doctor', header2: 'See All', context: context),
-          const SizedBox(height: 15),
-          Obx(
-            () => SizedBox(
-              height: 30,
+          children: [
+            _headerView(),
+            const SizedBox(height: 5),
+            _searchView(),
+            const SizedBox(height: 20),
+            _checkHealthView(),
+            const SizedBox(height: 20),
+            _row(
+                header1: 'Doctor Speciality',
+                header2: 'See More',
+                context: context),
+            const SizedBox(height: 10),
+            SizedBox(
               width: double.infinity,
+              height: 80,
               child: ListView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
                 scrollDirection: Axis.horizontal,
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
                 children: [
-                  const SizedBox(width: 10),
-                  for (int i = 0; i < FakeData.topData.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                  // const SizedBox(width: 10),
+                  ...fakeItem.map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: () {
-                          selectTop.value = i;
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: (i == selectTop.value)
-                                  ? AppColors.primaryColor
-                                  : Colors.white,
-                              border: Border.all(
-                                  width: 1, color: AppColors.primaryColor)),
-                          child: Text(
-                            FakeData.topData[i],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              color: (i == selectTop.value)
-                                  ? Colors.white
-                                  : AppColors.primaryColor,
+                        borderRadius: BorderRadius.circular(60),
+                        onTap: () {},
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.primaryColor.withOpacity(0.1),
+                              ),
+                              padding: const EdgeInsets.all(10.0),
+                              child: SvgPicture.asset(e['image'],
+                                  height: 30,
+                                  width: 30,
+                                  color: AppColors.primaryColor1),
                             ),
-                          ),
+                            const SizedBox(height: 10),
+                            Text(
+                              e['name'],
+                              style: const TextStyle(
+                                color: AppColors.textColor1,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    )
+                    ),
+                  )
                 ],
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Column(
-            children: const [
-              DoctorCard(
-                name: 'Dr. Minh Hung',
-                image: 'assets/images/doctor2.png',
+            const SizedBox(height: 10),
+            _row(header1: 'Top Doctor', header2: 'See All', context: context),
+            const SizedBox(height: 15),
+            Obx(
+              () => SizedBox(
+                height: 30,
+                width: double.infinity,
+                child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    const SizedBox(width: 10),
+                    for (int i = 0; i < FakeData.topData.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(20),
+                          onTap: () {
+                            selectTop.value = i;
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: (i == selectTop.value)
+                                    ? AppColors.primaryColor
+                                    : Colors.white,
+                                border: Border.all(
+                                    width: 1, color: AppColors.primaryColor)),
+                            child: Text(
+                              FakeData.topData[i],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: (i == selectTop.value)
+                                    ? Colors.white
+                                    : AppColors.primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                  ],
+                ),
               ),
-              DoctorCard(
-                name: 'Dr. Duc Hoang',
-                image: 'assets/images/doctor3.png',
-              ),
-              SizedBox(height: 20.0),
-            ],
-          ),
-        ],
-      ),
-    );
+            ),
+            const SizedBox(height: 10),
+            Obx(
+              () => _controller.isLoading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(color: Colors.blue))
+                  : Column(
+                      children: [
+                        ..._controller.listDoctor.value.map(
+                          (e) => InkWell(
+                            onTap: () => Get.toNamed(
+                                RouteNames.doctorDetailScreen,
+                                arguments: {
+                                  "doctor": e,
+                                }),
+                            child: DoctorCard(
+                                image: e.avt!, name: e.name!, check: 2),
+                          ),
+                        ),
+                        const SizedBox(height: 20.0),
+                      ],
+                    ),
+            )
+          ],
+        ));
   }
 
   Padding _row(

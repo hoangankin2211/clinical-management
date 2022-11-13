@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../routes/route_name.dart';
 import '../../../services/auth_services.dart';
+import '../../../services/data_services.dart';
 
 class SplashC extends GetxController {
   @override
@@ -12,7 +13,10 @@ class SplashC extends GetxController {
     // });
     bool check = await AuthService.instance.getUserData();
     if (check) {
+      // bool check1 = await DataService.instance.fetchAllData();
+      // if (check1) {
       Get.offAllNamed(RouteNames.dashboardScreen);
+      // }
     } else {
       Get.offAllNamed(RouteNames.introScreen);
     }

@@ -171,11 +171,11 @@ class ArticlesDetailScreen extends StatelessWidget {
               ],
             ),
           ),
-          const DoctorCard1(
-              image: 'assets/images/doctor2.png',
-              name: "Dr.Minh Hung",
-              title1: "An Khe Hospital",
-              title2: "Doctor"),
+          // const DoctorCard1(
+          //     image: 'assets/images/doctor2.png',
+          //     name: "Dr.Minh Hung",
+          //     title1: "An Khe Hospital",
+          //     title2: "Doctor"),
           const SizedBox(height: 30.0),
         ],
       ),

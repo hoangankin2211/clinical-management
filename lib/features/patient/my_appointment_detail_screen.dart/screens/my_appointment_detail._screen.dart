@@ -119,12 +119,12 @@ class MyAppointmentDetailScreen extends StatelessWidget {
         ),
         children: [
           const SizedBox(height: 10.0),
-          const DoctorCard1(
-            image: 'assets/images/doctor2.png',
-            name: "Dr.Minh Hung",
-            title1: "Imonologists",
-            title2: "Christ Hospital in London, UK",
-          ),
+          // const DoctorCard1(
+          //   image: 'assets/images/doctor2.png',
+          //   name: "Dr.Minh Hung",
+          //   title1: "Imonologists",
+          //   title2: "Christ Hospital in London, UK",
+          // ),
           const SizedBox(height: 20.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),

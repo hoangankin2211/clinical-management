@@ -1,28 +1,35 @@
+import 'package:clinic_manager/features/patient/doctor_detail/controller/doctor_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../constants/app_color.dart';
+import '../../../../models/doctor.dart';
 import '../../../../routes/route_name.dart';
 import '../widgets/comment_card.dart';
 
-List<Map<String, dynamic>> listInfo = [
-  {'image': 'assets/icons/people.svg', 'title': 'patients', 'data': '5.000+'},
-  {
-    'image': 'assets/icons/experiences.svg',
-    'title': 'year experiences',
-    'data': '10+'
-  },
-  {'image': 'assets/icons/star.svg', 'title': 'rating', 'data': '4.8'},
-  {'image': 'assets/icons/chat.svg', 'title': 'reviews', 'data': '4.942'},
-];
-
 class DoctorDetailSceen extends StatelessWidget {
-  const DoctorDetailSceen({super.key});
+  DoctorDetailSceen({super.key});
+  final _controller = Get.find<DoctorDetailController>();
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> listInfo = [
+      {
+        'image': 'assets/icons/people.svg',
+        'title': 'patients',
+        'data': '5.000+'
+      },
+      {
+        'image': 'assets/icons/experiences.svg',
+        'title': 'year experiences',
+        'data':
+            '${_controller.doctor.experience! > 10 ? 10 : _controller.doctor.experience!}+'
+      },
+      {'image': 'assets/icons/star.svg', 'title': 'rating', 'data': '4.8'},
+      {'image': 'assets/icons/chat.svg', 'title': 'reviews', 'data': '4.942'},
+    ];
     return Scaffold(
       backgroundColor: AppColors.backgroudColor,
       bottomNavigationBar: Container(
@@ -79,9 +86,9 @@ class DoctorDetailSceen extends StatelessWidget {
           onTap: () => Get.back(),
           child: const Icon(Icons.arrow_back, color: AppColors.textColor),
         ),
-        title: const Text(
-          'Dr.Minh Hung',
-          style: TextStyle(
+        title: Text(
+          'Dr.${_controller.doctor.name}',
+          style: const TextStyle(
               color: AppColors.textColor,
               fontWeight: FontWeight.bold,
               fontSize: 18),
@@ -106,12 +113,7 @@ class DoctorDetailSceen extends StatelessWidget {
         ),
         children: [
           // const SizedBox(height: 10),
-          const DoctorCard1(
-            image: 'assets/images/doctor2.png',
-            name: "Minh Hung",
-            title1: "Imonologists",
-            title2: "Christ Hospital in London, UK",
-          ),
+          DoctorCard1(doctor: _controller.doctor),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -175,21 +177,21 @@ class DoctorDetailSceen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: ReadMoreText(
-              'Doctors, also known as physicians, are licensed health professionals who maintain and restore human health through the practice of medicine. They examine patients, review their medical history, diagnose illnesses or injuries, administer treatment, and counsel patients on their health and well-being.',
+              _controller.doctor.description!,
               trimLines: 4,
               colorClickableText: Colors.pink,
               trimMode: TrimMode.Line,
               trimCollapsedText: ' Show more',
               trimExpandedText: ' Show less',
-              moreStyle: TextStyle(
+              moreStyle: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primaryColor1,
               ),
-              lessStyle: TextStyle(
+              lessStyle: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primaryColor1,
@@ -211,11 +213,11 @@ class DoctorDetailSceen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(left: 20.0),
             child: Text(
-              'Monday - Friday, 08:00 AM - 20:00 PM',
-              style: TextStyle(color: AppColors.textColor, fontSize: 15),
+              'Monday - Friday, ${_controller.doctor.timeStart}:00 AM - ${_controller.doctor.timeFinish}:00 PM',
+              style: const TextStyle(color: AppColors.textColor, fontSize: 15),
             ),
           ),
           const SizedBox(height: 20.0),
@@ -276,16 +278,10 @@ class DoctorDetailSceen extends StatelessWidget {
 }
 
 class DoctorCard1 extends StatelessWidget {
-  final String image;
-  final String name;
-  final String title1;
-  final String title2;
+  final Doctor doctor;
   const DoctorCard1({
     Key? key,
-    required this.image,
-    required this.name,
-    required this.title1,
-    required this.title2,
+    required this.doctor,
   }) : super(key: key);
 
   @override
@@ -314,7 +310,7 @@ class DoctorCard1 extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(image),
+                image: NetworkImage(doctor.avt!),
               ),
             ),
           ),
@@ -328,7 +324,7 @@ class DoctorCard1 extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        name,
+                        'Dr ${doctor.name!}',
                         style: const TextStyle(
                           color: AppColors.textColor,
                           fontWeight: FontWeight.bold,
@@ -342,13 +338,15 @@ class DoctorCard1 extends StatelessWidget {
                 const Divider(color: AppColors.textColor1),
                 const SizedBox(height: 2),
                 Text(
-                  title1,
-                  style:
-                      const TextStyle(color: AppColors.textColor, fontSize: 12),
+                  doctor.type!,
+                  style: const TextStyle(
+                      color: AppColors.textColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  title2,
+                  doctor.address!,
                   style:
                       const TextStyle(color: AppColors.textColor, fontSize: 12),
                 ),

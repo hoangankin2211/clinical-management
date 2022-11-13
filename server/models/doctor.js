@@ -14,22 +14,31 @@ const doctorSchema = mongoose.Schema({
         }
     },
     type: {
+        require: true,
         type: String,
         default: "General",
     },
     description: {
+        require: true,
         type: String,
         default: "",
     },
-    workingTime: [{
+    timeStart: {
+        require: true,
         type: Number,
         default: 0,
-    }, ],
+    },
+    timeFinish: {
+        require: true,
+        type: Number,
+        default: 0,
+    },
     rating: [ratingSchema],
     experience: {
+        require: true,
         type: Number,
         default: 0,
     }
 });
 const Doctor = mongoose.model("doctor", doctorSchema);
-module.exports = { Doctor, doctorSchema };
+module.exports = Doctor;

@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 
 import '../../../../constants/app_color.dart';
 import '../../../../constants/fake_data.dart';
+import '../../profile_settings/widgets/bottom_log_out.dart';
 import '../widgets/comment_card.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ViewReviewScreen extends StatelessWidget {
   ViewReviewScreen({super.key});
@@ -12,6 +14,17 @@ class ViewReviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await showModalBottomSheet(
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (builder) => BottomAddReviews(),
+          );
+        },
+        child:
+            const Icon(FontAwesomeIcons.facebookMessenger, color: Colors.white),
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -149,6 +162,102 @@ class ViewReviewScreen extends StatelessWidget {
               checkLike: true,
             ),
           ]),
+    );
+  }
+}
+
+class BottomAddReviews extends StatelessWidget {
+  BottomAddReviews({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 230,
+      // padding: const EdgeInsets.all(10.0),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+        color: Colors.white,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 10),
+          Container(
+            width: 80,
+            height: 5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: AppColors.textColor1.withOpacity(0.2),
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            'Log Out',
+            style: TextStyle(
+                color: Colors.red, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          const SizedBox(height: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Divider(color: AppColors.textColor1),
+          ),
+          const SizedBox(height: 10.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text('Are you sure you want to log out?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: AppColors.textColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14)),
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Divider(color: AppColors.textColor1),
+          ),
+          const SizedBox(height: 10.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(30.0),
+                    onTap: () => Get.back(),
+                    child: Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: AppColors.primaryColor.withOpacity(0.4),
+                      ),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

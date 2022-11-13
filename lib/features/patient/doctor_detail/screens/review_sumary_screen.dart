@@ -50,12 +50,12 @@ class ReviewSummaryScreen extends StatelessWidget {
           parent: AlwaysScrollableScrollPhysics(),
         ),
         children: [
-          const DoctorCard1(
-            image: 'assets/images/doctor2.png',
-            name: "Minh Hung",
-            title1: "Imonologists",
-            title2: "Christ Hospital in London, UK",
-          ),
+          // const DoctorCard1(
+          //   image: 'assets/images/doctor2.png',
+          //   name: "Minh Hung",
+          //   title1: "Imonologists",
+          //   title2: "Christ Hospital in London, UK",
+          // ),
           const SizedBox(height: 20),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20.0),

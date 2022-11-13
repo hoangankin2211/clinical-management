@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:clinic_manager/constants/utils.dart';
+import 'package:clinic_manager/services/data_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -104,6 +105,7 @@ class AuthService extends ChangeNotifier {
         onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           // ignore: use_build_context_synchronously
+          // DataService.instance.fetchAllData();
           AuthService.instance.setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Get.offAllNamed(RouteNames.dashboardScreen);
@@ -228,7 +230,49 @@ class AuthService extends ChangeNotifier {
     }
     callBack();
   }
+
+  void insertDoctor({
+    required String type,
+    required String description,
+    required int timeStart,
+    required int timeFinish,
+    required int experience,
+    required VoidCallback callback,
+    required BuildContext context,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse(
+          '${ApiLink.uri}/api/doctors/insertDoctor',
+        ),
+        body: jsonEncode({
+          'email': AuthService.instance.user.email,
+          'type': type,
+          'description': description,
+          'timeStart': timeStart,
+          'timeFinish': timeFinish,
+          'experience': experience,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(res.body);
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          callback();
+        },
+      );
+    } catch (e) {
+      callback();
+    }
+    callback();
+  }
 }
+
+
 
   // var response = jsonDecode(tokenRes.body);
       // if (response == true) {
