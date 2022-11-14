@@ -34,7 +34,6 @@ class DataService extends GetxController {
       );
       if (res.statusCode == 200) {
         data.clear();
-        print(res.body);
         for (int i = 0; i < jsonDecode(res.body).length; i++) {
           Map<String, dynamic> map = jsonDecode(res.body)[i];
           data.add(Reviews.fromJson(map));
@@ -83,8 +82,9 @@ class DataService extends GetxController {
     required String doctor,
     required double rating,
     required String reviews,
-    required VoidCallback callBack,
+    required Function(Reviews) callBack,
   }) async {
+    Reviews data = Reviews();
     try {
       print("call api insert reviews");
       http.Response res = await http.post(
@@ -103,12 +103,15 @@ class DataService extends GetxController {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print(res.body);
+      if (res.statusCode == 200) {
+        data = Reviews.fromMap(jsonDecode(res.body));
+      }
     } catch (e) {
       print('Error: ${e.toString()}');
     } finally {
-      callBack();
+      callBack(data);
     }
+    // return data;
   }
 
   fetchAllDoctorData() async {

@@ -234,9 +234,7 @@ class DoctorDetailSceen extends StatelessWidget {
                       fontSize: 18),
                 ),
                 InkWell(
-                  onTap: () => Get.toNamed(
-                    RouteNames.viewReiviewScreen,
-                  ),
+                  onTap: () => _controller.fetchAllReviewOfDoctor(),
                   child: const Text(
                     'See More',
                     style: TextStyle(
@@ -261,6 +259,7 @@ class DoctorDetailSceen extends StatelessWidget {
                 day: 6,
                 star: 4,
                 checkLike: true,
+                check: 1,
               ),
               CommentCard(
                 name: 'Nguyen Minh Hung',
@@ -270,6 +269,7 @@ class DoctorDetailSceen extends StatelessWidget {
                 day: 8,
                 star: 3,
                 checkLike: true,
+                check: 1,
               ),
             ],
           ),

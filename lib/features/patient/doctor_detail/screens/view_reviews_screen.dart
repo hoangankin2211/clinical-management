@@ -21,7 +21,7 @@ class ViewReviewScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await showDialog(
+          final r = await showDialog(
             context: context,
             builder: (builder) => Dialog(
               backgroundColor: Colors.transparent,
@@ -30,6 +30,9 @@ class ViewReviewScreen extends StatelessWidget {
               ),
             ),
           );
+          if (r != null) {
+            _controller.update();
+          }
           // DataService.instance.getAllReviews(() {}, _controller.doctor.email!);
         },
         child:
@@ -132,44 +135,22 @@ class ViewReviewScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            const CommentCard(
-              name: 'Charolette Hanlin',
-              image: 'assets/images/doctor3.png',
-              favCount: 629,
-              title:
-                  'Dr.Jenny is very professional in her work and responsive. I have consulted and my problem is solved.',
-              day: 6,
-              star: 4,
-              checkLike: true,
-            ),
-            const CommentCard(
-              name: 'Nguyen Minh Hung',
-              image: 'assets/images/doctor2.png',
-              favCount: 300,
-              title: 'Doctors who are very skilled and fast in service',
-              day: 8,
-              star: 3,
-              checkLike: true,
-            ),
-            const CommentCard(
-              name: 'Charolette Hanlin',
-              image: 'assets/images/doctor3.png',
-              favCount: 629,
-              title:
-                  'Dr.Jenny is very professional in her work and responsive. I have consulted and my problem is solved.',
-              day: 6,
-              star: 4,
-              checkLike: true,
-            ),
-            const CommentCard(
-              name: 'Nguyen Minh Hung',
-              image: 'assets/images/doctor2.png',
-              favCount: 300,
-              title: 'Doctors who are very skilled and fast in service',
-              day: 8,
-              star: 3,
-              checkLike: true,
+            Obx(
+              () => Column(children: [
+                const SizedBox(height: 10),
+                ..._controller.listReview.value.map(
+                  (e) => CommentCard(
+                    image: e.image!,
+                    star: 4,
+                    name: e.name!,
+                    title: e.reviews!,
+                    checkLike: false,
+                    favCount: e.like!,
+                    check: 2,
+                    day: 6,
+                  ),
+                ),
+              ]),
             ),
           ]),
     );
@@ -184,6 +165,7 @@ class BottomAddReviews extends StatelessWidget {
   }) : super(key: key);
   final _textController = TextEditingController();
   late double rate = 0.0;
+  final _controller = Get.find<DoctorDetailController>();
 
   @override
   Widget build(BuildContext context) {
@@ -263,14 +245,11 @@ class BottomAddReviews extends StatelessWidget {
             child: CustomButton(
               text: "Add Reviews",
               onTap: () {
-                DataService.instance.addReview(
-                    doctor: doctorId,
-                    rating: rate,
+                _controller.addComennt(
+                    doctorId: doctorId,
                     reviews: _textController.text,
-                    callBack: () {
-                      print("Upload success");
-                      Get.back();
-                    });
+                    rating: rate,
+                    context: context);
               },
             ),
           )

@@ -66,6 +66,7 @@ doctorRouter.post('/api/doctors/addReview', async(req, res) => {
         console.log("add reviews is called");
         const { userSend, doctor, rating, reviews } = req.body;
         let doc = await Doctor.findOne({ email: doctor });
+        const user = await User.findOne({ email: userSend });
         const ratingSchema = {
             userSend,
             doctor,
@@ -74,7 +75,15 @@ doctorRouter.post('/api/doctors/addReview', async(req, res) => {
         };
         doc.rating.push(ratingSchema);
         doc = await doc.save();
-        res.json(doc);
+        res.json({
+            'userSend': userSend,
+            'doctor': doctor,
+            'rating': rating,
+            'reviews': reviews,
+            'like': 0,
+            'image': user.avt,
+            'name': user.name,
+        });
     } catch (e) {
         res.status(500).json({ error: e.message });
     }

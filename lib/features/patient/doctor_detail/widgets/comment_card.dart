@@ -10,6 +10,7 @@ class CommentCard extends StatelessWidget {
   final bool checkLike;
   final int favCount;
   final int day;
+  final int? check;
   const CommentCard({
     Key? key,
     required this.image,
@@ -19,6 +20,7 @@ class CommentCard extends StatelessWidget {
     required this.checkLike,
     required this.favCount,
     required this.day,
+    this.check = 2,
   }) : super(key: key);
 
   @override
@@ -30,24 +32,43 @@ class CommentCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 45,
-                height: 45,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(image),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 5,
-                      color: AppColors.textColor.withOpacity(0.2),
-                      offset: const Offset(2, 2),
+              check == 1
+                  ? Container(
+                      width: 45,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(image),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5,
+                            color: AppColors.textColor.withOpacity(0.2),
+                            offset: const Offset(2, 2),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(
+                      width: 45,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(image),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5,
+                            color: AppColors.textColor.withOpacity(0.2),
+                            offset: const Offset(2, 2),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
