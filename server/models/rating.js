@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const ratingSchema = mongoose.Schema({
-    userId: {
+    userSend: {
+        type: String,
+        required: true,
+    },
+    doctor: {
         type: String,
         required: true,
     },
@@ -10,9 +14,15 @@ const ratingSchema = mongoose.Schema({
         required: true,
     },
     reviews: {
+        required: true,
         type: String,
         default: '',
     },
+    like: {
+        required: true,
+        type: Number,
+        default: 0,
+    }
 });
 
 module.exports = ratingSchema;

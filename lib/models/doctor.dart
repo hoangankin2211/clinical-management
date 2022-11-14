@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Doctor {
+  String? email;
   String? name;
   String? address;
   String? gender;
@@ -13,7 +14,8 @@ class Doctor {
   int? experience;
 
   Doctor(
-      {this.name,
+      {this.email,
+      this.name,
       this.address,
       this.gender,
       this.dateBorn,
@@ -25,6 +27,7 @@ class Doctor {
       this.experience});
 
   Doctor.fromJson(Map<String, dynamic> json) {
+    email = json["email"];
     name = json['name'];
     address = json['address'];
     gender = json['gender'];
@@ -42,6 +45,7 @@ class Doctor {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
+    data["email"] = email;
     data['name'] = name;
     data['address'] = address;
     data['gender'] = gender;

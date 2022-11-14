@@ -234,7 +234,9 @@ class DoctorDetailSceen extends StatelessWidget {
                       fontSize: 18),
                 ),
                 InkWell(
-                  onTap: () => Get.toNamed(RouteNames.viewReiviewScreen),
+                  onTap: () => Get.toNamed(
+                    RouteNames.viewReiviewScreen,
+                  ),
                   child: const Text(
                     'See More',
                     style: TextStyle(

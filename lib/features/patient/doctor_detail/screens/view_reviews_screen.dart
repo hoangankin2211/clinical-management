@@ -1,26 +1,36 @@
+import 'package:clinic_manager/common/widgets/custom_button.dart';
+import 'package:clinic_manager/common/widgets/custom_text_field.dart';
+import 'package:clinic_manager/features/patient/doctor_detail/controller/doctor_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/app_color.dart';
 import '../../../../constants/fake_data.dart';
+import '../../../../services/data_services.dart';
 import '../../profile_settings/widgets/bottom_log_out.dart';
 import '../widgets/comment_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ViewReviewScreen extends StatelessWidget {
   ViewReviewScreen({super.key});
   RxInt selectTop = 0.obs;
-
+  final _controller = Get.find<DoctorDetailController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await showModalBottomSheet(
-            backgroundColor: Colors.transparent,
+          await showDialog(
             context: context,
-            builder: (builder) => BottomAddReviews(),
+            builder: (builder) => Dialog(
+              backgroundColor: Colors.transparent,
+              child: BottomAddReviews(
+                doctorId: _controller.doctor.email ?? "",
+              ),
+            ),
           );
+          // DataService.instance.getAllReviews(() {}, _controller.doctor.email!);
         },
         child:
             const Icon(FontAwesomeIcons.facebookMessenger, color: Colors.white),
@@ -167,20 +177,21 @@ class ViewReviewScreen extends StatelessWidget {
 }
 
 class BottomAddReviews extends StatelessWidget {
+  final String doctorId;
   BottomAddReviews({
     Key? key,
+    required this.doctorId,
   }) : super(key: key);
+  final _textController = TextEditingController();
+  late double rate = 0.0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 230,
+      height: 280,
       // padding: const EdgeInsets.all(10.0),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-        ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
       ),
       child: Column(
@@ -197,27 +208,11 @@ class BottomAddReviews extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           const Text(
-            'Log Out',
+            'Your Reviews',
             style: TextStyle(
-                color: Colors.red, fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Divider(color: AppColors.textColor1),
-          ),
-          const SizedBox(height: 10.0),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text('Are you sure you want to log out?',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: AppColors.textColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14)),
-            ),
+                color: AppColors.textColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
           ),
           const SizedBox(height: 10),
           const Padding(
@@ -226,36 +221,59 @@ class BottomAddReviews extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(30.0),
-                    onTap: () => Get.back(),
-                    child: Container(
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        color: AppColors.primaryColor.withOpacity(0.4),
-                      ),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
+                const Text('Ratings:',
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    )),
+                RatingBar.builder(
+                  initialRating: 3,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 20.0,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
                   ),
+                  onRatingUpdate: (rating) {
+                    rate = rating;
+                  },
                 ),
-                const SizedBox(width: 20),
               ],
             ),
           ),
+          const SizedBox(height: 20.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CustomTextField(
+                controller: _textController,
+                hintText: "Enter your reviews",
+                labelText: "Reviews",
+                icon: Icons.reviews),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: CustomButton(
+              text: "Add Reviews",
+              onTap: () {
+                DataService.instance.addReview(
+                    doctor: doctorId,
+                    rating: rate,
+                    reviews: _textController.text,
+                    callBack: () {
+                      print("Upload success");
+                      Get.back();
+                    });
+              },
+            ),
+          )
         ],
       ),
     );
